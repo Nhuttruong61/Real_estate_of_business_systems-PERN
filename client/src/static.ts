@@ -31,10 +31,5 @@ export const navbar = [
         name: "SEARCH",
         href: "/search",
     },
-    {
-        id: 8,
-        name: "Add Listing",
-        href: "/add-listing",
-        other: true
-    },
+
 ]

@@ -1,5 +1,6 @@
+"use client";
 import HeaderLayout from "@/components/Header/HeaderLayout";
-import React from "react";
+import React, { useState } from "react";
 
 function About() {
   return (

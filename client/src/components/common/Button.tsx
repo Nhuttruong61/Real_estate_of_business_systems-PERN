@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 interface ButtonProps {
   text: string;
@@ -9,7 +9,7 @@ interface ButtonProps {
 
 function Button({
   text,
-  className = "p-3 text-white bg-[#4a60a1] rounded-md",
+  className = "p-2 text-white bg-[#4a60a1] rounded-md",
   onClick,
   type = "button",
 }: ButtonProps) {
@@ -19,4 +19,4 @@ function Button({
     </button>
   );
 }
-export default Button;
+export default memo(Button);
