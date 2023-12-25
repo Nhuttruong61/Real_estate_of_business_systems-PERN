@@ -15,6 +15,7 @@ function Navbar() {
   const [isShownModal, setIsShownModal] = useState<boolean>(false);
   const [user, setUser] = useState<any>({
     phone: "",
+    name: "",
     password: "",
   });
   const { token } = useSelector((state: any) => state.user);

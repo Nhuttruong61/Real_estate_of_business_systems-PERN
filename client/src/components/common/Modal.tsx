@@ -1,6 +1,7 @@
 import React, { ReactNode, memo } from "react";
 import { IoMdClose } from "react-icons/io";
 interface PropsModal {
+  width?: number;
   show: boolean;
   setIsShownModal: (show: boolean) => void;
   showFooterModal?: boolean;
@@ -11,16 +12,19 @@ function Modal(props: PropsModal) {
   if (!props.show) {
     return null;
   }
-
   return (
     <div
-      className="fixed inset-0 bg-[#0000004b] z-40  flex justify-center items-center text-black"
+      className="fixed  inset-0 bg-[#0000004b] z-40  flex justify-center items-center text-black "
       onClick={() => {
         props.setIsShownModal(false);
       }}
     >
       <div
-        className="bg-white min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto "
+        className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto ${
+          props.width
+            ? `md:w-[${props.width}%]  w-[80%]`
+            : " sm:w-[50%] md:w-[60%] lg:w-[40%] w-[80%]"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-end mt-2 mr-2">
