@@ -5,6 +5,9 @@ interface PropInput {
   placeholder?: string;
   type?: any;
   onChange?: any;
+  minLength?: number;
+  pattern?: string | undefined;
+  title?: string | undefined;
 }
 function Input(props: PropInput) {
   return (
@@ -13,6 +16,9 @@ function Input(props: PropInput) {
       onChange={props.onChange}
       placeholder={props.placeholder}
       type={props.type}
+      minLength={props.minLength ? props.minLength : 3}
+      pattern={props.pattern && props.pattern}
+      title={props.title && props.title}
       required
     />
   );

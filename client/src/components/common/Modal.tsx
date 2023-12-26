@@ -1,7 +1,7 @@
 import React, { ReactNode, memo } from "react";
 import { IoMdClose } from "react-icons/io";
 interface PropsModal {
-  width?: number;
+  widthauto?: boolean;
   show: boolean;
   setIsShownModal: (show: boolean) => void;
   showFooterModal?: boolean;
@@ -21,9 +21,9 @@ function Modal(props: PropsModal) {
     >
       <div
         className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto ${
-          props.width
-            ? `md:w-[${props.width}%]  w-[80%]`
-            : " sm:w-[50%] md:w-[60%] lg:w-[40%] w-[80%]"
+          props.widthauto === true
+            ? `md:w-auto]  w-[80%]`
+            : " sm:w-[50%] md:w-[60%] lg:w-[30%] w-[80%]"
         }`}
         onClick={(e) => e.stopPropagation()}
       >

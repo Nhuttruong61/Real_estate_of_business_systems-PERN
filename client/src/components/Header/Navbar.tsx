@@ -17,6 +17,7 @@ function Navbar() {
     phone: "",
     name: "",
     password: "",
+    role: "",
   });
   const { token } = useSelector((state: any) => state.user);
   const handleNavigate = (nav: any) => {

@@ -54,8 +54,15 @@ const signIn = async (req, res, next) => {
     return throwError(500, error.message, res, next);
   }
 };
+const logOut = async (req, res, next) => {
+  try {
+  } catch (error) {
+    return throwError(500, error.message, res, next);
+  }
+};
 
 module.exports = {
   register,
   signIn,
+  logOut,
 };

@@ -1,24 +1,72 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import Input from "../common/Input";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import { registerApi, signApi } from "@/apis/auth";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { signIn } from "@/redux/slices/userSlice";
 function Account(props: any) {
   const [valueForm, setValueForm] = useState<number>(1);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const optionRadio = [
+    {
+      lable: "User",
+      value: "USER",
+    },
+    {
+      lable: "Agent",
+      value: "AGENT",
+    },
+  ];
   const handleButtonClick = (value: number) => {
     setValueForm(value);
   };
   const handleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
   };
-  const handleLogin = (e: any) => {
-    e.preventDefault();
-    const user = {
-      phone: props.user.phone,
-      password: props.user.password,
-    };
+  const handleLogin = async (e: any) => {
+    try {
+      e.preventDefault();
+      const user = {
+        phone: props.user.phone,
+        password: props.user.password,
+      };
+      const res: any = await signApi(user);
+      if (res?.success) {
+        toast.success("Registed successful");
+        // props.setIsShownModal(false);
+        // dispatch(signIn(res));
+      }
+    } catch (err: any) {
+      toast.error(err.response.data.mes || "An error occurred");
+    }
   };
-  const handleRegister = (e: any) => {
-    e.preventDefault();
+  const handleRegister = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      const res: any = await registerApi(props.user);
+      if (res?.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Registration successfully!",
+          showCancelButton: true,
+          confirmButtonText: "Go to sign in",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setValueForm(1);
+          }
+        });
+      }
+    } catch (err: any) {
+      toast.error(err.response.data.mes || "An error occurred");
+    }
+  };
+
+  const handleOnchageRadio = (e: any) => {
+    const value = e.target.value;
+    props.setUser({ ...props.user, role: value });
   };
   return (
     <div className="w-full flex flex-col">
@@ -50,15 +98,17 @@ function Account(props: any) {
             <span className="font-[600]">Phone Number</span>
             <Input
               value={props.user}
+              placeholder="Phone Number"
+              type="tel"
+              pattern="^\d{10,}$"
+              title="Phone number must have at least 10 digits."
               onChange={(e: any) => {
                 props.setUser({ ...props.user, phone: e.target.value });
               }}
-              placeholder="Phone Number"
-              type="text"
             />
           </label>
 
-          <label className="relative">
+          <label className=" py-2 relative">
             <span className="font-[600]">Password</span>
             <Input
               value={props.user}
@@ -110,18 +160,20 @@ function Account(props: any) {
             <Input
               value={props.user}
               placeholder="Phone Number"
-              type="text"
+              type="tel"
+              pattern="^\d{10,}$"
+              title="Phone number must have at least 10 digits."
               onChange={(e: any) => {
                 props.setUser({ ...props.user, phone: e.target.value });
               }}
             />
           </label>
-          <label className="relative">
+          <label className=" py-2 relative">
             <span className="font-[600]">Password</span>
             <Input
               value={props.user}
               placeholder="Enter password"
-              type={isShowPassword}
+              type={isShowPassword ? "text" : "password"}
               onChange={(e: any) => {
                 props.setUser({ ...props.user, password: e.target.value });
               }}
@@ -142,6 +194,27 @@ function Account(props: any) {
               </span>
             )}
           </label>
+          <label className=" py-2 flex flex-col ">
+            <span className="font-[600]">Type account</span>
+            {optionRadio.map((role, index): any => {
+              return (
+                <div key={index} className=" flex justify-start">
+                  <input
+                    type="radio"
+                    name="id"
+                    required
+                    id={role.value}
+                    value={role.value}
+                    onChange={(e) => handleOnchageRadio(e)}
+                  />
+                  <label className="px-1 cursor-pointer" htmlFor={role.value}>
+                    {role.lable}
+                  </label>
+                </div>
+              );
+            })}
+          </label>
+
           <button
             className="w-full p-2 text-white bg-[#4a60a1] rounded-md my-2"
             type="submit"

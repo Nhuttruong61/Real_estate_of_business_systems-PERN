@@ -26,4 +26,15 @@ router.post(
   ctrls.signIn
 );
 
+router.post(
+  "/log-out",
+  validateDto(
+    Joi.object({
+      phone: stringReq,
+      password: stringReq,
+    })
+  ),
+  ctrls.logOut
+);
+
 module.exports = router;

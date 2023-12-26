@@ -10,7 +10,7 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage/session';
+import storage from 'redux-persist/lib/storage'
 
 
 const rootReducer = combineReducers({
@@ -20,10 +20,8 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-}
+};
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-
 
 export const store = configureStore({
     reducer: persistedReducer,
@@ -34,7 +32,6 @@ export const store = configureStore({
             },
         }),
 });
-
 
 
 export let persistor = persistStore(store)
