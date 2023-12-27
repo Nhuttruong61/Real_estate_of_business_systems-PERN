@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { memo } from "react";
 import { IoMailOpenOutline, IoCallOutline } from "react-icons/io5";
 import { FaFacebookF } from "react-icons/fa";
 import { TiSocialDribbble } from "react-icons/ti";
@@ -45,4 +45,4 @@ function TopHeader() {
   );
 }
 
-export default TopHeader;
+export default memo(TopHeader);

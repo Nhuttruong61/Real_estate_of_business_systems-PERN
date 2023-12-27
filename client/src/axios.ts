@@ -6,16 +6,21 @@ const instance = axios.create({
 
 });
 // Add a response interceptor
-instance.interceptors.response.use(
-    function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        return response.data ? response.data : { statusCode: response.status };
+instance.interceptors.request.use(
+    function (config) {
+        // Add Authorization header to the request config
+        let token: any = localStorage.getItem('persist:pern');
+        if (token) token = JSON.parse(token)
+        if (token?.user) token = JSON.parse(token.user)
+        if (token?.token) {
+            config.headers.Authorization = `Bearer ${token.token}`;
+        }
+        return config;
     },
     function (error) {
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
+        // Do something with request error
         return Promise.reject(error);
     }
 );
+
 export default instance;

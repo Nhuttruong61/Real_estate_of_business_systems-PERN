@@ -1,10 +1,12 @@
 import axios from "../axios"
 
 export const registerApi = async (data: any) => {
-    return await axios.post("/auth/register", data)
+    const res = await axios.post("/auth/register", data)
+    return res.data as any
 }
 
 export const signApi = async (data: any) => {
-    return await axios.post("/auth/sign-in", data)
+    const res = await axios.post("/auth/sign-in", data)
+    return res.data as any
 
 }

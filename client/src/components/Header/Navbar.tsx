@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import Link from "next/link";
 import { navbar } from "@/static";
@@ -55,7 +55,13 @@ function Navbar() {
             text="Sign In"
             onClick={() => setIsShownModal(true)}
           />
-        ) : null}
+        ) : (
+          <Button
+            className={`bg-none  border px-2 rounded-md`}
+            text="Add Listing"
+            onClick={() => setIsShownModal(true)}
+          />
+        )}
       </div>
       <Modal
         show={isShownModal}
@@ -72,4 +78,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);

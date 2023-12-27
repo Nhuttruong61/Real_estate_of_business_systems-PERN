@@ -4,11 +4,13 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { registerApi, signApi } from "@/apis/auth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { signIn } from "@/redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentUser, signIn } from "@/redux/slices/userSlice";
+import Loading from "../common/Loading";
 function Account(props: any) {
   const [valueForm, setValueForm] = useState<number>(1);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const optionRadio = [
     {
@@ -33,20 +35,26 @@ function Account(props: any) {
         phone: props.user.phone,
         password: props.user.password,
       };
+      setIsLoading(true);
       const res: any = await signApi(user);
+      setIsLoading(false);
       if (res?.success) {
         toast.success("Registed successful");
-        // props.setIsShownModal(false);
-        // dispatch(signIn(res));
+        props.setIsShownModal(false);
+        dispatch(signIn(res.accessToken));
+        dispatch(fetchCurrentUser());
       }
     } catch (err: any) {
+      setIsLoading(false);
       toast.error(err.response.data.mes || "An error occurred");
     }
   };
   const handleRegister = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
+      setIsLoading(true);
       const res: any = await registerApi(props.user);
+      setIsLoading(false);
       if (res?.success) {
         Swal.fire({
           icon: "success",
@@ -60,6 +68,7 @@ function Account(props: any) {
         });
       }
     } catch (err: any) {
+      setIsLoading(false);
       toast.error(err.response.data.mes || "An error occurred");
     }
   };
@@ -228,6 +237,7 @@ function Account(props: any) {
           Forgot password
         </span>
       </div>
+      <Loading loading={isLoading} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
     user: userSlice,
 });
 const persistConfig = {
-    key: 'root',
+    key: 'pern',
     version: 1,
     storage,
 };
