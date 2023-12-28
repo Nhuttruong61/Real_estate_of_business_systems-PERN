@@ -71,6 +71,13 @@ module.exports = {
       propertySize: {
         type: Sequelize.FLOAT,
       },
+      owner: {
+        type: Sequelize.UUID,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

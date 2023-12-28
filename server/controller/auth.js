@@ -16,11 +16,11 @@ const register = async (req, res, next) => {
         next
       );
     }
-    const newUser = await db.User.create({ phone, password, name, role });
+    await db.User.create({ phone, password, name, role });
 
     return res.status(200).json({
       success: true,
-      newUser,
+      mes: "Your register acccount successfully",
     });
   } catch (error) {
     return throwError(500, error.message, res, next);

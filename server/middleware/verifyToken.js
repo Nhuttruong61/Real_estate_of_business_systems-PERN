@@ -11,6 +11,20 @@ const verifyToken = (req, res, next) => {
   });
 };
 
+const isAgent = (req, res, next) => {
+  const { role } = req.user;
+  if (role === "USER") return throwError(401, "You cannot isAgent ", res, next);
+  next();
+};
+
+const isAdmin = (req, res, next) => {
+  const { role } = req.user;
+  if (role !== "ADMIN")
+    return throwError(401, "You cannot is access", res, next);
+  next();
+};
 module.exports = {
   verifyToken,
+  isAdmin,
+  isAgent,
 };
