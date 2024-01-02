@@ -43,17 +43,53 @@ const signIn = async (req, res, next) => {
     const token = jwt.sign(
       { uid: user.id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "5d" }
     );
+    const refreshtoken = jwt.sign(
+      { uid: user.id },
+      process.env.JWT_SECRET_REFRESH_TOKEN,
+      { expiresIn: "20d" }
+    );
+    user.refeshToken = refreshtoken;
+    await user.save();
     return res.status(200).json({
       success: true,
-      user,
       accessToken: token,
+      refreshtoken: refreshtoken,
     });
   } catch (error) {
     return throwError(500, error.message, res, next);
   }
 };
+
+const refreshToken = async (req, res, next) => {
+  try {
+    const { refreshtoken } = req.body;
+    const user = await db.User.findOne({
+      where: { refeshToken: refreshtoken },
+    });
+    if (!user) return throwError(401, "User not default", res, next);
+
+    jwt.verify(refreshtoken, process.env.JWT_SECRET_REFRESH_TOKEN, (err) => {
+      if (err) {
+        return throwError(401, "Token expired", res, next);
+      } else {
+        const token = jwt.sign(
+          { uid: user.id, role: user.role },
+          process.env.JWT_SECRET,
+          { expiresIn: "5d" }
+        );
+        res.status(200).json({
+          success: true,
+          token: token,
+        });
+      }
+    });
+  } catch (error) {
+    return throwError(500, error.message, res, next);
+  }
+};
+
 const logOut = async (req, res, next) => {
   try {
   } catch (error) {
@@ -65,4 +101,5 @@ module.exports = {
   register,
   signIn,
   logOut,
+  refreshToken,
 };

@@ -5,6 +5,7 @@ const getUser = async (req, res, next) => {
   try {
     const { uid } = req.user;
     const response = await db.User.findByPk(uid);
+    if (!response) return throwError(401, "User not default", res, next);
     return res.json({
       success: Boolean(response) ? "Got." : "Couldn't find",
       response,

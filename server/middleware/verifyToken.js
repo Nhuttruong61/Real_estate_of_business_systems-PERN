@@ -5,7 +5,11 @@ const verifyToken = (req, res, next) => {
   if (!token) return throwError(401, "Create token failed", res, next);
   const rawToken = token.split(" ")[1];
   jwt.verify(rawToken, process.env.JWT_SECRET, (err, decode) => {
-    if (err) return throwError(401, "Create invalid token", res, next);
+    // const ischeckToken = err instanceof jwt.TokenExpiredError;
+    // if (!ischeckToken) {
+    //   return throwError(401, "Token invalid token", res, next);
+    // }
+    if (err) return throwError(402, "Token expired", res, next);
     req.user = decode;
     next();
   });

@@ -25,7 +25,17 @@ router.post(
   ),
   ctrls.signIn
 );
-
+router.post(
+  "/sign-in",
+  validateDto(
+    Joi.object({
+      phone: stringReq,
+      password: stringReq,
+    })
+  ),
+  ctrls.signIn
+);
+router.post("/refresh-token", ctrls.refreshToken);
 router.post(
   "/log-out",
   validateDto(

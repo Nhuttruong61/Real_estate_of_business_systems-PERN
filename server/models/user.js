@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       email: DataTypes.STRING,
       address: DataTypes.STRING,
+      refeshToken: DataTypes.STRING,
       password: {
         type: DataTypes.STRING,
         set(value) {
@@ -31,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       avatar: DataTypes.STRING,
     },
+
     {
       sequelize,
       modelName: "User",
