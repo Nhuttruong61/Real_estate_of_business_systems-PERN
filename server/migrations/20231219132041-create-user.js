@@ -1,4 +1,7 @@
 "use strict";
+
+const { sequelize } = require("../models");
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -29,6 +32,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      refeshToken: {
+        type: Sequelize.STRING,
+      },
       role: {
         type: Sequelize.ENUM(["ADMIN", "AGENT", "USER"]),
         defaultValue: "USER",
@@ -36,6 +42,7 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
