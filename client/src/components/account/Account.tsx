@@ -41,7 +41,12 @@ function Account(props: any) {
       if (res?.success) {
         toast.success("Registed successful");
         props.setIsShownModal(false);
-        dispatch(signIn(res.accessToken));
+        dispatch(
+          signIn({
+            token: res.accessToken,
+            refreshtoken: res.refreshtoken,
+          })
+        );
         dispatch(fetchCurrentUser());
       }
     } catch (err: any) {

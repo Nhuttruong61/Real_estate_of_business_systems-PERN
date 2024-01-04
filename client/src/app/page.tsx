@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="flex  flex-col w-full ">
       <div
-        className="bg-cover bg-no-repeat w-full h-full relative"
+        className="bg-cover bg-no-repeat w-full z-40 h-full relative top-0"
         style={{
           backgroundImage: `url(${background.src})`,
           height: "752px",

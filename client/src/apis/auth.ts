@@ -10,3 +10,8 @@ export const signApi = async (data: any) => {
     return res.data as any
 
 }
+export const refreshTokenApi = async (refreshtoken: any) => {
+    const res = await axios.post("/auth/refresh-token", { refreshtoken: refreshtoken })
+    return res.data as any
+
+}
