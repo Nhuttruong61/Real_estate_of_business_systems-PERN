@@ -22,7 +22,7 @@ function Modal(props: PropsModal) {
       <div
         className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto ${
           props.widthauto === true
-            ? `md:w-auto]  w-[80%]`
+            ? `md:w-auto  w-[80%]`
             : " sm:w-[50%] md:w-[60%] lg:w-[30%] w-[80%]"
         }`}
         onClick={(e) => e.stopPropagation()}

@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Input from "../common/Input";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { registerApi, signApi } from "@/apis/auth";
