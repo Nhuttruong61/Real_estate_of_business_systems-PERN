@@ -34,7 +34,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
     });
   };
   return (
-    <div className="flex flex-col h-screen shadow overflow-y-auto md:w-[18%]">
+    <div className="flex flex-col h-screen shadow overflow-y-auto md:min-w-[240px]">
       <div className="flex flex-col justify-center items-center">
         {user?.avatar ? (
           <span className=" rounded-full">

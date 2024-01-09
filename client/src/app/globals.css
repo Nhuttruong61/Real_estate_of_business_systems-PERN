@@ -25,3 +25,19 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+.zoom {
+  animation: zoom-in-zoom-out 0.3s ease-in;
+}
+
+@keyframes zoom-in-zoom-out {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ql-editor {
+  height: 20vh !important;
+}

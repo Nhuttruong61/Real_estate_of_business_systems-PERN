@@ -5,8 +5,9 @@ interface PropsModal {
   show: boolean;
   setIsShownModal: (show: boolean) => void;
   showFooterModal?: boolean;
-  handleOK?: React.MouseEventHandler<HTMLButtonElement>;
+  handleOK?: any;
   children: ReactNode;
+  title?: string;
 }
 function Modal(props: PropsModal) {
   if (!props.show) {
@@ -20,14 +21,19 @@ function Modal(props: PropsModal) {
       }}
     >
       <div
-        className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto ${
-          props.widthauto === true
-            ? `md:w-auto  w-[80%]`
+        className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto zoom ${
+          props.widthauto
+            ? `md:w-auto  w-[80%] md:max-w-[60%]`
             : " sm:w-[50%] md:w-[60%] lg:w-[30%] w-[80%]"
-        }`}
+        } `}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-end mt-2 mr-2">
+        <div
+          className={`flex justify-end mt-2 mr-2 ${
+            props.title && "justify-between"
+          }`}
+        >
+          {props?.title && <h2 className="px-2 font-[600] ">{props.title}</h2>}
           <span
             className="text-black p-1 text-[28px] hover:bg-slate-200 rounded-full cursor-pointer"
             onClick={() => {
@@ -40,20 +46,20 @@ function Modal(props: PropsModal) {
         <div className=" px-[8%]">{props?.children}</div>
         {!props.showFooterModal && (
           <div className="flex justify-end px-3 py-1 my-2">
-            <span
+            <button
               className="border rounded px-3 py-1 cursor-pointer mx-2 hover:bg-red-500  hover:text-white"
               onClick={() => {
                 props.setIsShownModal(false);
               }}
             >
               Close
-            </span>
-            <span
-              className="border rounded px-3 py-1 cursor-pointer hover:bg-green-600  hover:text-white"
+            </button>
+            <button
+              className="border rounded px-3 py-1  hover:bg-green-600  hover:text-white"
               onClick={props.handleOK}
             >
               Ok
-            </span>
+            </button>
           </div>
         )}
       </div>

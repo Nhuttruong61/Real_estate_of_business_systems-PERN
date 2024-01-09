@@ -1,8 +1,15 @@
+"use client";
 import HeaderLayout from "@/components/Header/HeaderLayout";
-import React from "react";
+import Edittor from "@/components/input/Edittor";
+import React, { useState } from "react";
 
 function About() {
-  return <div></div>;
+  const [value, setValue] = useState("");
+  return (
+    <div>
+      <Edittor value={value} setValue={setValue} />
+    </div>
+  );
 }
 
 export default About;

@@ -7,7 +7,7 @@ function LayOut() {
   return (
     <div className="w-full flex ">
       <SideBar active={active} setActive={setActive} />
-      <Content active={active} />
+      <Content active={active} setActive={setActive} />
     </div>
   );
 }

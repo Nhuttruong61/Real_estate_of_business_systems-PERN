@@ -1,11 +1,20 @@
 const router = require("express").Router();
+const Joi = require("joi");
 const ctrls = require("../controller/propertyType");
 const { verifyToken, isAdmin } = require("../middleware/verifyToken");
-
+const validateDto = require("../middleware/validate");
+const { stringReq } = require("../middleware/joinSheme");
 router.post(
   "/create-propertytype",
   verifyToken,
   isAdmin,
+  validateDto(
+    Joi.object({
+      name: stringReq,
+      description: stringReq,
+      image: stringReq,
+    })
+  ),
   ctrls.createPropertyType
 );
 router.get("/get-all-propertytype", ctrls.getAllPropertyType);
@@ -16,7 +25,15 @@ router.get(
 );
 router.put(
   "/update-propertytype/:id",
-
+  verifyToken,
+  isAdmin,
+  validateDto(
+    Joi.object({
+      name: stringReq,
+      description: stringReq,
+      image: stringReq,
+    })
+  ),
   ctrls.updatePropertyType
 );
 router.delete(

@@ -62,7 +62,6 @@ const getAllPropertyType = async (req, res, next) => {
       where: query,
       ...options,
     });
-    console.log(options);
     return res.status(200).json({
       success: true,
       response,
@@ -107,7 +106,7 @@ const updatePropertyType = async (req, res, next) => {
   try {
     const { name, description, image } = req.body;
     const id = req.params.id;
-    const response = await db.PropertyType.update(
+    await db.PropertyType.update(
       { name, description, image },
       {
         where: { id },
@@ -116,7 +115,6 @@ const updatePropertyType = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       mes: "Update successful",
-      response,
     });
   } catch (error) {
     return throwError(500, error.message, res, next);

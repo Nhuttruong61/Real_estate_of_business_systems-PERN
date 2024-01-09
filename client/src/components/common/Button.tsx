@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 
 interface ButtonProps {
-  text: string;
+  text: any;
   className?: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
@@ -10,7 +10,7 @@ interface ButtonProps {
 
 function Button({
   text,
-  className = "p-2 text-white bg-[#4a60a1] rounded-md",
+  className = "px-2 text-white bg-[#4a60a1] rounded-md",
   onClick,
   type = "button",
   disabled = false,

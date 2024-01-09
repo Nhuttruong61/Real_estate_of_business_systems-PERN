@@ -1,10 +1,10 @@
-import React, { memo, useEffect, useState } from "react";
-import Input from "../common/Input";
+import React, { memo, useState } from "react";
+import Input from "../input/Input";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { registerApi, signApi } from "@/apis/auth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchCurrentUser, signIn } from "@/redux/slices/userSlice";
 import Loading from "../common/Loading";
 function Account(props: any) {

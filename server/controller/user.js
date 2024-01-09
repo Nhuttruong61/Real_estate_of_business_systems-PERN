@@ -4,7 +4,9 @@ const { throwError } = require("../middleware/errorHandler");
 const getUser = async (req, res, next) => {
   try {
     const { uid } = req.user;
-    const response = await db.User.findByPk(uid);
+    const response = await db.User.findByPk(uid, {
+      attributes: { exclude: ["password"] },
+    });
     if (!response) return throwError(401, "User not default", res, next);
     return res.json({
       success: Boolean(response) ? "Got." : "Couldn't find",
@@ -16,7 +18,9 @@ const getUser = async (req, res, next) => {
 };
 const getUsers = async (req, res, next) => {
   try {
-    const users = await db.User.findAll();
+    const users = await db.User.findAll({
+      attributes: { exclude: ["password"] },
+    });
     return res.json({
       success: Boolean(users) ? "Got." : "Couldn't find",
       users,
