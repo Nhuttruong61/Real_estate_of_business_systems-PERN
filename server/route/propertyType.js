@@ -3,7 +3,7 @@ const Joi = require("joi");
 const ctrls = require("../controller/propertyType");
 const { verifyToken, isAdmin } = require("../middleware/verifyToken");
 const validateDto = require("../middleware/validate");
-const { stringReq } = require("../middleware/joinSheme");
+const { stringReq, arrayReq } = require("../middleware/joinSheme");
 router.post(
   "/create-propertytype",
   verifyToken,
@@ -12,7 +12,7 @@ router.post(
     Joi.object({
       name: stringReq,
       description: stringReq,
-      image: stringReq,
+      images: arrayReq,
     })
   ),
   ctrls.createPropertyType
@@ -31,7 +31,6 @@ router.put(
     Joi.object({
       name: stringReq,
       description: stringReq,
-      image: stringReq,
     })
   ),
   ctrls.updatePropertyType

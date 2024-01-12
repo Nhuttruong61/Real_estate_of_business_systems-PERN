@@ -29,8 +29,23 @@ const getUsers = async (req, res, next) => {
     return throwError(500, error.message, res, next);
   }
 };
-
+const deleteUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const response = await db.User.destroy({
+      where: { id },
+    });
+    if (!response) return throwError(401, "User not default", res, next);
+    return res.json({
+      success: Boolean(response) ? "Got." : "Couldn't find",
+      mes: "Delete successfully",
+    });
+  } catch (error) {
+    return throwError(500, error.message, res, next);
+  }
+};
 module.exports = {
   getUser,
   getUsers,
+  deleteUser,
 };

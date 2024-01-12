@@ -2,21 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("PropertyTypes", {
+    await queryInterface.createTable("Images", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
-      name: {
+      propertyTypeId: {
+        allowNull: false,
+        type: Sequelize.UUID,
+        references: {
+          model: "PropertyTypes",
+          key: "id",
+        },
+      },
+      publicId: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: false,
+      url: {
+        type: Sequelize.STRING,
       },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -28,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("PropertyTypes");
+    await queryInterface.dropTable("Images");
   },
 };

@@ -1,6 +1,7 @@
 const db = require("../models");
 const { throwError } = require("../middleware/errorHandler");
 const { Sequelize } = require("sequelize");
+const cloudinary = require("cloudinary").v2;
 const createPropertyType = async (req, res, next) => {
   try {
     const { name, description, images } = req.body;
@@ -9,12 +10,23 @@ const createPropertyType = async (req, res, next) => {
       defaults: {
         name: name,
         description: description,
-        images: images,
       },
     });
     if (response[1] === false) {
       return throwError(409, "PropertyType already exist", res, next);
     }
+    const cloudinayImage = await images.map(async (image) => {
+      const images = await cloudinary.uploader.upload(image, {
+        folder: "PERN/PropertyType",
+      });
+      await db.Image.create({
+        publicId: images.public_id,
+        url: images.url,
+        propertyTypeId: response[0].id,
+      });
+    });
+    await Promise.all(cloudinayImage);
+
     return res.status(200).json({
       success: response[1],
       response,
@@ -35,6 +47,13 @@ const getAllPropertyType = async (req, res, next) => {
         "LIKE",
         `%${name.toLowerCase()}%`
       );
+    options.include = [
+      {
+        model: db.Image,
+        as: "Images",
+        attributes: ["publicId", "url"],
+      },
+    ];
     //sort data
     if (sort) {
       const order = sort
