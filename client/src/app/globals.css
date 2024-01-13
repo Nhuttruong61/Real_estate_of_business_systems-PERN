@@ -41,3 +41,25 @@ body {
 .ql-editor {
   height: 20vh !important;
 }
+.left-side {
+  animation: rigth-to-left 0.3s ease-in;
+}
+@keyframes rigth-to-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+/* .left-right {
+  animation: left-to-right 0.3s ease-in;
+}
+@keyframes left-to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+} */

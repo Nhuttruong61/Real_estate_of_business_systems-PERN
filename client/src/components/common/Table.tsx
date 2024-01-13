@@ -1,5 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import Panigate from "./Panigate";
+import Image from "next/image";
+import notdata from "../../../public/images/notdata.png";
 interface TableProps {
   columns: any;
   data: any[];
@@ -15,7 +17,6 @@ function Table({ columns, data }: TableProps) {
     let res: any = data?.slice(startData, endData);
     setListData(res);
   }, [page, data]);
-
   return (
     <div className="w-full">
       <table className="w-full">
@@ -28,6 +29,7 @@ function Table({ columns, data }: TableProps) {
             ))}
           </tr>
         </thead>
+
         <tbody>
           {listData?.map((el: any) => (
             <tr className="border bg-slate-100" key={el.id}>
@@ -41,9 +43,17 @@ function Table({ columns, data }: TableProps) {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-end">
-        <Panigate data={data} curent={curent} page={page} setPage={setPage} />
-      </div>
+      {data?.length === 0 && (
+        <div className="flex flex-col justify-center items-center w-full py-5 opacity-30">
+          <Image src={notdata} alt="" className="w-[60px]" />
+          <p>Not data</p>
+        </div>
+      )}
+      {data?.length !== 0 && (
+        <div className="flex justify-end">
+          <Panigate data={data} curent={curent} page={page} setPage={setPage} />
+        </div>
+      )}
     </div>
   );
 }

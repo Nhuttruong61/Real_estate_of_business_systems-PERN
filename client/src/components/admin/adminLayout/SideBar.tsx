@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { getCurrentApi } from "@/apis/user";
 import { useQuery } from "@tanstack/react-query";
@@ -6,23 +6,36 @@ import Loading from "@/components/common/Loading";
 import Image from "next/image";
 import { FaRegUser } from "react-icons/fa";
 import { sideBarItem } from "@/static/data";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentUser, updateToken } from "@/redux/slices/userSlice";
+import { refreshTokenApi } from "@/apis/auth";
 interface proqLayout {
   active: number;
   setActive: any;
 }
 const SideBar = ({ active, setActive }: proqLayout) => {
   const [activeTab, setActiveTab] = useState<any>([]);
-  const featchUser = async () => {
-    try {
-      const res = await getCurrentApi();
-      return res.response;
-    } catch (e) {}
+  const { token, refreshtoken, current, isloading } = useSelector(
+    (state: any) => state.user
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [token]);
+
+  const fetchToken = async () => {
+    if (token && current === null) {
+      try {
+        const res = await refreshTokenApi(refreshtoken);
+        dispatch(updateToken(res.token));
+      } catch (err) {
+        dispatch(updateToken(null));
+      }
+    }
   };
-  const { isLoading, data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: featchUser,
-    retry: 1,
-  });
+  useEffect(() => {
+    fetchToken();
+  }, []);
   const handleClickSidebar = (index: number) => {
     setActive(index);
     setActiveTab((value: any) => {
@@ -33,12 +46,13 @@ const SideBar = ({ active, setActive }: proqLayout) => {
       }
     });
   };
+
   return (
     <div className="flex flex-col h-screen shadow overflow-y-auto md:min-w-[240px]">
       <div className="flex flex-col justify-center items-center">
-        {user?.avatar ? (
+        {current?.avatar ? (
           <span className=" rounded-full">
-            <Image src={user.avatar} alt="" />
+            <Image src={current.avatar} alt="" />
           </span>
         ) : (
           <div className="py-2 ">
@@ -47,7 +61,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
           </div>
         )}
 
-        <p>{user?.name}</p>
+        <p>{current?.name}</p>
       </div>
       {sideBarItem.map((el, index) => (
         <Fragment key={index}>
@@ -96,7 +110,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
         </Fragment>
       ))}
 
-      <Loading loading={isLoading} />
+      <Loading loading={isloading} />
     </div>
   );
 };

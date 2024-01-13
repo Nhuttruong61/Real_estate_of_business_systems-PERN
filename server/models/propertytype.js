@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       PropertyType.hasMany(models.Image, {
         foreignKey: "propertyTypeId",
         as: "Images",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       });
     }
   }

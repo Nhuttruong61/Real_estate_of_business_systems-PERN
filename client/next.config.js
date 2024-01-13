@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-module.exports = {
+
+const nextConfig = {
   publicRuntimeConfig: {
     SERVER_URL: process.env.SERVER_URL,
+  },
+  images: {
+    domains: ["res.cloudinary.com"],
   },
 };
 

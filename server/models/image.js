@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       Image.belongsTo(models.PropertyType, {
         foreignKey: "propertyTypeId",
         as: "PropertyType",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       });
     }
   }

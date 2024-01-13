@@ -1,8 +1,11 @@
+import { createPropertyType } from "@/apis/propertyType";
+import Loading from "@/components/common/Loading";
 import Edittor from "@/components/input/Edittor";
 import Input from "@/components/input/Input";
 import InputFile from "@/components/input/InputFile";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoMdReturnLeft } from "react-icons/io";
+import { toast } from "react-toastify";
 
 interface proqs {
   setActive: (value: number) => void;
@@ -13,7 +16,35 @@ function CreatePropertyType({ setActive }: proqs) {
     description: "",
     images: [],
   });
-  console.log(addPropertyType);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const handleCreate = async (e: any) => {
+    e.preventDefault();
+    try {
+      if (
+        !addPropertyType.name ||
+        !addPropertyType.description ||
+        !addPropertyType.images
+      ) {
+        toast.warn("Please complete all information");
+      } else {
+        setIsLoading(true);
+        const res: any = await createPropertyType(addPropertyType);
+        setIsLoading(false);
+        if (res.success) {
+          toast.success("Create property type successfully");
+          setAddPropertyType({
+            name: "",
+            description: "",
+            images: [],
+          });
+        }
+      }
+    } catch (e: any) {
+      setIsLoading(false);
+      toast.error(e.message);
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="w-full border-b">
@@ -28,8 +59,8 @@ function CreatePropertyType({ setActive }: proqs) {
         <p className="text-[26px] font-bold w-full text-center">
           Create new PropertyType
         </p>
-        <form action="" className="px-[10%] pt-2">
-          <label>
+        <form onSubmit={(e) => handleCreate(e)} className="px-[10%] pt-2">
+          <div>
             <span className="font-[400]">Property Type Name</span>
             <Input
               value={addPropertyType.name}
@@ -37,8 +68,8 @@ function CreatePropertyType({ setActive }: proqs) {
                 setAddPropertyType({ ...addPropertyType, name: e.target.value })
               }
             />
-          </label>
-          <label className=" block">
+          </div>
+          <div className=" block">
             <span className="font-[400]">Description</span>
             <Edittor
               value={addPropertyType.description}
@@ -46,11 +77,15 @@ function CreatePropertyType({ setActive }: proqs) {
                 setAddPropertyType({ ...addPropertyType, description: value })
               }
             />
-          </label>
-          <label>
+          </div>
+          <div>
             <span className="font-[400]">Image</span>
-            <InputFile data={addPropertyType} setIData={setAddPropertyType} />
-          </label>
+            <InputFile
+              data={addPropertyType}
+              setIData={setAddPropertyType}
+              multiple={false}
+            />
+          </div>
           <button
             className="w-full p-2 text-white bg-[#4a60a1] rounded-md my-2 "
             type="submit"
@@ -59,8 +94,9 @@ function CreatePropertyType({ setActive }: proqs) {
           </button>
         </form>
       </div>
+      <Loading loading={isLoading} />
     </div>
   );
 }
 
-export default CreatePropertyType;
+export default memo(CreatePropertyType);

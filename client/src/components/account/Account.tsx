@@ -5,13 +5,14 @@ import { registerApi, signApi } from "@/apis/auth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { fetchCurrentUser, signIn } from "@/redux/slices/userSlice";
+import { signIn } from "@/redux/slices/userSlice";
 import Loading from "../common/Loading";
 function Account(props: any) {
   const [valueForm, setValueForm] = useState<number>(1);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
+
   const optionRadio = [
     {
       lable: "User",
@@ -47,7 +48,6 @@ function Account(props: any) {
             refreshtoken: res.refreshtoken,
           })
         );
-        dispatch(fetchCurrentUser());
       }
     } catch (err: any) {
       setIsLoading(false);

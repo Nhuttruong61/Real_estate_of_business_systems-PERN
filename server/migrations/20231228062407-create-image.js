@@ -12,6 +12,8 @@ module.exports = {
       propertyTypeId: {
         allowNull: false,
         type: Sequelize.UUID,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         references: {
           model: "PropertyTypes",
           key: "id",

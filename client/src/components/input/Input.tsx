@@ -19,6 +19,7 @@ function Input(props: PropInput) {
       minLength={props.minLength ? props.minLength : 3}
       pattern={props.pattern && props.pattern}
       title={props.title && props.title}
+      value={props.value}
       required
     />
   );

@@ -31,6 +31,7 @@ router.put(
     Joi.object({
       name: stringReq,
       description: stringReq,
+      images: arrayReq,
     })
   ),
   ctrls.updatePropertyType
