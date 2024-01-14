@@ -5,6 +5,7 @@ interface ProqsDrawer {
   setIsShowDrawer: (value: boolean) => void;
   title: string;
   children: React.ReactElement;
+  className?: string;
 }
 
 function Drawer(props: ProqsDrawer) {
@@ -20,7 +21,9 @@ function Drawer(props: ProqsDrawer) {
       }}
     >
       <div
-        className="bg-white h-screen w-[50%] left-side"
+        className={`bg-white h-screen left-side ${
+          props.className && props.className
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full flex border-b py-4 items-center px-2">

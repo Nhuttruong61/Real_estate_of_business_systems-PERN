@@ -1,6 +1,8 @@
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline, IoSettingsOutline } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
+import { IoIosLogOut } from "react-icons/io";
 export const sideBarItem = [{
     active: 0,
     name: "DashBoard",
@@ -19,5 +21,14 @@ export const sideBarItem = [{
     icon: IoHomeOutline,
     type: "Single"
 }
-
 ]
+export const itemSettings = [
+    {
+        key: "Logout",
+        name: "Logout",
+        icon: CiLogout,
+    }, {
+        key: "Go Home",
+        name: "Go Home",
+        icon: IoIosLogOut,
+    }]

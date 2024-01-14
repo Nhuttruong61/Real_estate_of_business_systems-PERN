@@ -111,7 +111,7 @@ function Account(props: any) {
           <label>
             <span className="font-[600]">Phone Number</span>
             <Input
-              value={props.user}
+              value={props.user.number}
               placeholder="Phone Number"
               type="tel"
               pattern="^\d{10,}$"
@@ -125,7 +125,7 @@ function Account(props: any) {
           <label className=" py-2 relative">
             <span className="font-[600]">Password</span>
             <Input
-              value={props.user}
+              value={props.user.password}
               onChange={(e: any) => {
                 props.setUser({ ...props.user, password: e.target.value });
               }}
@@ -161,7 +161,7 @@ function Account(props: any) {
           <label>
             <span className="font-[600]">Name</span>
             <Input
-              value={props.user}
+              value={props.user.name}
               placeholder="Enter your name"
               type="string"
               onChange={(e: any) => {
@@ -172,7 +172,7 @@ function Account(props: any) {
           <label>
             <span className="font-[600]">Phone Number</span>
             <Input
-              value={props.user}
+              value={props.user.number}
               placeholder="Phone Number"
               type="tel"
               pattern="^\d{10,}$"
@@ -185,7 +185,7 @@ function Account(props: any) {
           <label className=" py-2 relative">
             <span className="font-[600]">Password</span>
             <Input
-              value={props.user}
+              value={props.user.password}
               placeholder="Enter password"
               type={isShowPassword ? "text" : "password"}
               onChange={(e: any) => {

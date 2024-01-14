@@ -1,13 +1,13 @@
 import React, { ReactNode, memo } from "react";
 import { IoMdClose } from "react-icons/io";
 interface PropsModal {
-  widthauto?: boolean;
   show: boolean;
   setIsShownModal: (show: boolean) => void;
   showFooterModal?: boolean;
   handleOK?: any;
   children: ReactNode;
   title?: string;
+  className?: string;
 }
 function Modal(props: PropsModal) {
   if (!props.show) {
@@ -21,10 +21,8 @@ function Modal(props: PropsModal) {
       }}
     >
       <div
-        className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] overflow-y-auto zoom ${
-          props.widthauto
-            ? `md:w-auto  w-[80%] md:max-w-[60%]`
-            : " sm:w-[50%] md:w-[60%] lg:w-[30%] w-[80%]"
+        className={`bg-white min-w-[80%] md:min-w-[30%] rounded-md z-50 max-h-[80%] w-[50%] overflow-y-auto zoom ${
+          props.className && props.className
         } `}
         onClick={(e) => e.stopPropagation()}
       >

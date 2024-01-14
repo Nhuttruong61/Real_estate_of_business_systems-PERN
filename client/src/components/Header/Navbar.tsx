@@ -67,6 +67,7 @@ function Navbar() {
         show={isShownModal}
         setIsShownModal={setIsShownModal}
         showFooterModal={true}
+        className="w-[50%]"
       >
         <Account
           user={user}

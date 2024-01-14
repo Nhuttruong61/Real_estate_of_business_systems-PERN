@@ -163,6 +163,7 @@ function AdminPropetyType({ setActive }: any) {
         show={isShownModal}
         setIsShownModal={setIsShownModal}
         handleOK={handleDelete}
+        className="w-[40%]"
       >
         <h1>Are you sure to delete this property type? </h1>
       </Modal>
@@ -170,6 +171,7 @@ function AdminPropetyType({ setActive }: any) {
         isShowDrawer={isShowDrawer}
         setIsShowDrawer={setIsShowDrawer}
         title="Edit property type"
+        className="w-[50%]"
       >
         <form onSubmit={(e) => handleEdit(e)} className="px-[10%] pt-2">
           <div>
