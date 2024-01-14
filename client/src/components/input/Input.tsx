@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 
 interface PropInput {
-  value: string | number;
+  value?: string | number;
   placeholder?: string;
   type?: any;
   onChange?: any;

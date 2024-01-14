@@ -32,7 +32,12 @@ function CreatePropertyType({ setActive }: proqs) {
         setIsLoading(false);
         if (res.success) {
           toast.success("Create property type successfully");
-          setActive(2);
+          // setActive(2);
+          setAddPropertyType({
+            name: "",
+            description: "",
+            images: [],
+          });
         }
       }
     } catch (e: any) {
@@ -40,7 +45,6 @@ function CreatePropertyType({ setActive }: proqs) {
       toast.error(e.message);
     }
   };
-
   return (
     <div className="w-full">
       <div className="w-full border-b">
@@ -59,7 +63,7 @@ function CreatePropertyType({ setActive }: proqs) {
           <div>
             <span className="font-[400]">Property Type Name</span>
             <Input
-              value={addPropertyType.name}
+              value={addPropertyType.name || ""}
               onChange={(e: any) =>
                 setAddPropertyType({ ...addPropertyType, name: e.target.value })
               }
@@ -68,7 +72,7 @@ function CreatePropertyType({ setActive }: proqs) {
           <div className=" block">
             <span className="font-[400]">Description</span>
             <Edittor
-              value={addPropertyType.description}
+              value={addPropertyType.description || ""}
               setValue={(value) =>
                 setAddPropertyType({ ...addPropertyType, description: value })
               }
