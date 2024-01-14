@@ -46,6 +46,8 @@ function AdminPropetyType({ setActive }: any) {
     queryKey: ["propertyType"],
     queryFn: fetchPropertyType,
     retryOnMount: false,
+    refetchOnWindowFocus: true,
+    staleTime: 30000,
   });
   const { isLoading, data: listData } = queryPropertyType;
   const renderAction = (el: any) => {
@@ -114,7 +116,8 @@ function AdminPropetyType({ setActive }: any) {
     });
   };
   const mutationUpdate = useMutationHooks((data: any) => {
-    const { id, ...rest } = data;
+    setIsShowDrawer(false);
+    const { id, createdAt, updatedAt, stt, ...rest } = data;
     const res: any = updatePropertyType(id, rest);
     return res;
   });
@@ -134,11 +137,12 @@ function AdminPropetyType({ setActive }: any) {
     if (isSuccessDelete) {
       toast.success("Delete property type successfully");
     }
+  }, [isLoadingDelete]);
+  useEffect(() => {
     if (isSuccessUpdate) {
       toast.success("Update property type successfully");
     }
-  }, [isLoadingDelete, isSuccessUpdate]);
-
+  }, [isSuccessUpdate]);
   return (
     <div className="w-full flex flex-col">
       <div className="p-2">

@@ -27,13 +27,6 @@ router.put(
   "/update-propertytype/:id",
   verifyToken,
   isAdmin,
-  validateDto(
-    Joi.object({
-      name: stringReq,
-      description: stringReq,
-      images: arrayReq,
-    })
-  ),
   ctrls.updatePropertyType
 );
 router.delete(

@@ -32,11 +32,7 @@ function CreatePropertyType({ setActive }: proqs) {
         setIsLoading(false);
         if (res.success) {
           toast.success("Create property type successfully");
-          setAddPropertyType({
-            name: "",
-            description: "",
-            images: [],
-          });
+          setActive(2);
         }
       }
     } catch (e: any) {

@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { getCurrentApi } from "@/apis/user";
-import { useQuery } from "@tanstack/react-query";
 import Loading from "@/components/common/Loading";
 import Image from "next/image";
 import { FaRegUser } from "react-icons/fa";

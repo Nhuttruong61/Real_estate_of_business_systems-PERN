@@ -144,7 +144,7 @@ const getPropertyType = async (req, res, next) => {
 };
 const updatePropertyType = async (req, res, next) => {
   try {
-    const { name, description, images } = req.body;
+    const data = req.body;
     const id = req.params.id;
     const propertyType = await db.PropertyType.findByPk(id, {
       include: [
@@ -155,27 +155,39 @@ const updatePropertyType = async (req, res, next) => {
         },
       ],
     });
+
     if (!propertyType) {
       return throwError(401, "PropertyType not default", res, next);
     }
+    if (data?.images && data?.images?.length !== 0) {
+      const deleteImageCloudinary = await propertyType.Images.map(
+        async (image) => {
+          await cloudinary.uploader.destroy(image.publicId);
+        }
+      );
+      await Promise.all(deleteImageCloudinary);
+      await db.Image.destroy({
+        where: { propertyTypeId: id },
+      });
+      const cloudinayImage = await data?.images?.map(async (image) => {
+        const images = await cloudinary.uploader.upload(image, {
+          folder: "PERN/PropertyType",
+        });
+        await db.Image.create({
+          publicId: images.public_id,
+          url: images.url,
+          propertyTypeId: propertyType.id,
+        });
+      });
+
+      await Promise.all(cloudinayImage);
+    }
     await db.PropertyType.update(
-      { name, description },
+      { name: data.name, description: data.description },
       {
         where: { id },
       }
     );
-    const cloudinayImage = await images.map(async (image) => {
-      const images = await cloudinary.uploader.upload(image, {
-        folder: "PERN/PropertyType",
-      });
-      await db.Image.create({
-        publicId: images.public_id,
-        url: images.url,
-        propertyTypeId: response[0].id,
-      });
-    });
-    await Promise.all(cloudinayImage);
-
     return res.status(200).json({
       success: true,
       mes: "Update successful",

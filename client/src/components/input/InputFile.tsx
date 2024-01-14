@@ -28,7 +28,6 @@ function InputFile({ setIData, data, multiple }: ProqInputFile) {
       }
     }
   };
-
   return (
     <div className="w-full">
       <div className="mb-2 w-[20%]">

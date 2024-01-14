@@ -43,7 +43,7 @@ function Table({ columns, data }: TableProps) {
           ))}
         </tbody>
       </table>
-      {data?.length === 0 && (
+      {data?.length <= 0 && (
         <div className="flex flex-col justify-center items-center w-full py-5 opacity-30">
           <Image src={notdata} alt="" className="w-[60px]" />
           <p>Not data</p>
