@@ -10,7 +10,7 @@ interface ButtonProps {
 
 function Button({
   text,
-  className = "px-2 text-white bg-[#4a60a1] rounded-md",
+  className = "px-4 text-white bg-[#4a60a1] rounded-md py-1",
   onClick,
   type = "button",
   disabled = false,

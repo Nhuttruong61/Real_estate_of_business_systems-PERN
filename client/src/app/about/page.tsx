@@ -1,13 +1,17 @@
 "use client";
-import HeaderLayout from "@/components/Header/HeaderLayout";
-import Edittor from "@/components/input/Edittor";
+import Otp from "@/components/input/Otp";
 import React, { useState } from "react";
 
 function About() {
-  const [value, setValue] = useState("");
+  const [valueCapcha, setValueCapcha] = useState("");
+  const handleSubmitVerify = () => {};
   return (
     <div>
-      <Edittor value={value} setValue={setValue} />
+      <Otp
+        valueCapcha={valueCapcha}
+        setValueCapcha={setValueCapcha}
+        onSubmit={handleSubmitVerify}
+      />
     </div>
   );
 }

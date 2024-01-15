@@ -2,7 +2,7 @@ import axios from "axios";
 // import getConfig from "next/config";
 // const { publicRuntimeConfig } = getConfig();
 const instance = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: process.env.SERVER_URL,
 
 });
 // Add a response interceptor

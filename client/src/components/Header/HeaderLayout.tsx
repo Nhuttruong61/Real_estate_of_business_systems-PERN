@@ -21,7 +21,7 @@ function HeaderLayout() {
 
   useEffect(() => {
     if (token && current === null) dispatch(fetchCurrentUser());
-  }, [token, current]);
+  }, [token]);
   const fetchToken = async () => {
     if (token && current === null) {
       try {
