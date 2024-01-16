@@ -11,8 +11,8 @@ const initialState = {
 
 export const fetchCurrentUser: any = createAsyncThunk(
     'fetchCurrentUser',
-    async () => {
-        const res = await getCurrentApi();
+    async (token: any) => {
+        const res = await getCurrentApi(token);
         return res.response
     }
 );

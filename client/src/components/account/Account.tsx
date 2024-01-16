@@ -11,6 +11,14 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import auth from "@/utils/fireBaseConfig";
 import Otp from "../input/Otp";
 import InputPhone from "../input/InputPhone";
+
+declare global {
+  interface Window {
+    reCaptchaVerify: any;
+    confirmationResult: any;
+  }
+}
+
 function Account(props: any) {
   const [valueForm, setValueForm] = useState<number>(1);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
@@ -57,11 +65,12 @@ function Account(props: any) {
       }
     } catch (err: any) {
       setIsLoading(false);
-      toast.error(err.response.data.mes || "An error occurred");
+      toast.error(err?.response?.data?.mes || "An error occurred");
     }
   };
 
   const handleCapchaVerify = () => {
+    // if (!window.reCaptchaVerify) {
     window.reCaptchaVerify = new RecaptchaVerifier(auth, "reCaptchaVerify", {
       size: "normal",
       callback: (response: any) => {
@@ -71,10 +80,12 @@ function Account(props: any) {
         console.log("expires", response);
       },
     });
+    // }
   };
+
   const handleSendOTP = (phone: any) => {
     handleCapchaVerify();
-    const verifier = window.window.reCaptchaVerify;
+    const verifier = window.reCaptchaVerify;
     const fotmatPhone: any = `+${phone}`;
     signInWithPhoneNumber(auth, fotmatPhone, verifier)
       .then((confirmationResult: any) => {
@@ -181,14 +192,10 @@ function Account(props: any) {
             <form onSubmit={(e: any) => handleLogin(e)} className="px-1 pt-2">
               <label>
                 <span className="font-[600]">Phone Number</span>
-                <Input
-                  value={props.user.phone}
-                  placeholder="Phone Number"
-                  type="tel"
-                  pattern="0\d{9}"
-                  title="Phone number must have at least 10 digits."
-                  onChange={(e: any) => {
-                    props.setUser({ ...props.user, phone: e.target.value });
+                <InputPhone
+                  value={props.user.number}
+                  onChange={(value: any) => {
+                    props.setUser({ ...props.user, phone: value });
                   }}
                 />
               </label>
