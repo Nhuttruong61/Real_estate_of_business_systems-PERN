@@ -6,5 +6,6 @@ const { verifyToken, isAdmin } = require("../middleware/verifyToken");
 router.get("/get-current", verifyToken, ctrls.getUser);
 router.get("/get-users", verifyToken, isAdmin, ctrls.getUsers);
 router.delete("/delete-user/:id", verifyToken, isAdmin, ctrls.deleteUser);
+router.put("/update-user/:id", verifyToken, isAdmin, ctrls.updateUser);
 
 module.exports = router;

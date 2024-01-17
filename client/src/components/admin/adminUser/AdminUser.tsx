@@ -1,4 +1,4 @@
-import { deleteUser, getUsers } from "@/apis/user";
+import { deleteUser, getUsers, updateUser } from "@/apis/user";
 import Loading from "@/components/common/Loading";
 import Table from "@/components/common/Table";
 import { useQuery } from "@tanstack/react-query";
@@ -10,16 +10,19 @@ import Input from "@/components/input/Input";
 import Modal from "@/components/common/Modal";
 import { useMutationHooks } from "@/hooks/useMutatonHook";
 import { toast } from "react-toastify";
+import SearchAdmin from "@/components/input/SearchAdmin";
+
 function AdminUser() {
   const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
   const [isShownModal, setIsShownModal] = useState<boolean>(false);
   const [idUser, setIdUser] = useState<any>(null);
-  const [editUser, setEditUser] = useState({
+  const [editUser, setEditUser] = useState<any>({
     name: "",
     phone: "",
     email: "",
     address: "",
   });
+  const [valueSearch, setValueSearch] = useState<any>(null);
   const fetchDataUser = async () => {
     const res = await getUsers();
     let format = [];
@@ -44,6 +47,7 @@ function AdminUser() {
           onClick={() => {
             setIsShowDrawer(true);
             setEditUser(el);
+            setIdUser(el.id);
           }}
         >
           <CiEdit className="text-green-600 text-[20px]" />
@@ -84,7 +88,7 @@ function AdminUser() {
     },
     {
       title: "Address",
-      dataIndex: "email",
+      dataIndex: "address",
       key: "email",
     },
     {
@@ -99,7 +103,22 @@ function AdminUser() {
       render: renderAction,
     },
   ];
-  const handleEdit = (e: object) => {};
+  const mutationUpdate = useMutationHooks(async (data: any) => {
+    setIsShowDrawer(false);
+    const { id, createdAt, refeshToken, stt, updatedAt, ...rest } = data;
+    const updatedData: any = { id, ...rest };
+    const res: any = await updateUser(updatedData);
+    return res;
+  });
+  const { isPending: isLoadingUpdate, isSuccess: isSuccessUpdate } =
+    mutationUpdate;
+  const handleEdit = () => {
+    mutationUpdate.mutate(editUser, {
+      onSettled: () => {
+        fetchUsers.refetch();
+      },
+    });
+  };
   const mutationDelete = useMutationHooks(async (data: any) => {
     setIsShownModal(false);
     const res: any = await deleteUser(data);
@@ -119,9 +138,24 @@ function AdminUser() {
       toast.success("Delete user success");
     }
   }, [isLoadingDelete]);
+  useEffect(() => {
+    if (isSuccessUpdate) {
+      toast.success("Update user success");
+    }
+  }, [isSuccessUpdate]);
   return (
     <div className="w-full">
-      <Table columns={columns} data={listData} />
+      <div className="w-full flex justify-end">
+        <SearchAdmin
+          placeholder="Enter name"
+          refApi="/user/get-users"
+          setValue={setValueSearch}
+        />
+      </div>
+      <Table
+        columns={columns}
+        data={valueSearch?.users ? valueSearch.users : listData}
+      />
       <Loading loading={isLoading} />
       <Drawer
         isShowDrawer={isShowDrawer}
@@ -129,7 +163,7 @@ function AdminUser() {
         title="Edit User"
         className="w-[50%]"
       >
-        <form onSubmit={(e) => handleEdit(e)} className="px-[10%] pt-2">
+        <form onSubmit={() => handleEdit()} className="px-[10%] pt-2">
           <div>
             <span className="font-[400]">User Name</span>
             <Input
@@ -195,7 +229,7 @@ function AdminUser() {
       >
         <h1>Are you sure to delete this property type? </h1>
       </Modal>
-      <Loading loading={isLoadingDelete} />
+      <Loading loading={isLoadingDelete || isLoadingUpdate} />
     </div>
   );
 }

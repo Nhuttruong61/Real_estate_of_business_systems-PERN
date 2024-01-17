@@ -43,7 +43,7 @@ const signIn = async (req, res, next) => {
     const token = jwt.sign(
       { uid: user.id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "5d" }
+      { expiresIn: "30s" }
     );
     const refreshtoken = jwt.sign(
       { uid: user.id },
@@ -77,7 +77,7 @@ const refreshToken = async (req, res, next) => {
         const token = jwt.sign(
           { uid: user.id, role: user.role },
           process.env.JWT_SECRET,
-          { expiresIn: "5d" }
+          { expiresIn: "3000s" }
         );
         res.status(200).json({
           success: true,

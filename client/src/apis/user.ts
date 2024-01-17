@@ -16,5 +16,8 @@ export const deleteUser = async (id: string) => {
     return res.data as any
 }
 
-
+export const updateUser = async (id: string) => {
+    const res = await axios.put(`/user/update-user/${id}`)
+    return res.data as any
+}
 

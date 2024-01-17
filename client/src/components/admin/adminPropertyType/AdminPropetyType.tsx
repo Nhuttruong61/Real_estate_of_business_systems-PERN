@@ -19,6 +19,7 @@ import Drawer from "@/components/common/Drawer";
 import InputFile from "@/components/input/InputFile";
 import Edittor from "@/components/input/Edittor";
 import Input from "@/components/input/Input";
+import SearchAdmin from "@/components/input/SearchAdmin";
 function AdminPropetyType({ setActive }: any) {
   const [isShownModal, setIsShownModal] = useState<boolean>(false);
   const [idProperty, setIdProperty] = useState<any>("");
@@ -28,14 +29,15 @@ function AdminPropetyType({ setActive }: any) {
     description: "",
     images: null,
   });
+  const [valueSearch, setValueSearch] = useState<any>(null);
   const fetchPropertyType = async () => {
     try {
       const res = await getAllPropertyType();
       let format = [];
-      format = res.response.map((el: object, index: number) => {
+      format = res.response.map((el: any, index: number) => {
         return {
           ...el,
-          createdAt: moment().startOf("hour").fromNow(),
+          createdAt: moment(`${el.createdAt}`, "YYYY/MM/DD").fromNow(),
           stt: index + 1,
         };
       });
@@ -145,7 +147,7 @@ function AdminPropetyType({ setActive }: any) {
   }, [isSuccessUpdate]);
   return (
     <div className="w-full flex flex-col">
-      <div className="p-2">
+      <div className="pt-2 px-2">
         <Title>
           <span
             className="flex items-center bg-[#4a60a1] text-white font-[500] px-2 rounded-md py-1 cursor-pointer hover:bg-[#142a6b]"
@@ -156,7 +158,17 @@ function AdminPropetyType({ setActive }: any) {
           </span>
         </Title>
       </div>
-      <Table columns={columns} data={listData} />
+      <div className="w-full flex justify-end">
+        <SearchAdmin
+          placeholder="Enter name"
+          refApi="/properttype/get-all-propertytype"
+          setValue={setValueSearch}
+        />
+      </div>
+      <Table
+        columns={columns}
+        data={valueSearch?.response ? valueSearch?.response : listData}
+      />
       <Loading loading={isLoading || isLoadingDelete || isLoadingUpdate} />
       <Modal
         title="Delete PropertyType"

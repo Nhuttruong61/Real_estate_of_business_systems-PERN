@@ -6,6 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { itemSettings, sideBarItem } from "@/static/data";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cleartoken,
   fetchCurrentUser,
   logout,
   updateToken,
@@ -26,7 +27,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    if (token) dispatch(fetchCurrentUser(token));
   }, [token]);
 
   const fetchToken = async () => {
@@ -35,7 +36,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
         const res = await refreshTokenApi(refreshtoken);
         dispatch(updateToken(res.token));
       } catch (err) {
-        dispatch(updateToken(null));
+        dispatch(cleartoken(null));
       }
     }
   };
