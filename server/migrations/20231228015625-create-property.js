@@ -43,14 +43,6 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },
-      images: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      featureImage: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       postedBy: {
         type: Sequelize.UUID,
         allowNull: false,

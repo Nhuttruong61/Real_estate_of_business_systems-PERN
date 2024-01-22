@@ -21,6 +21,16 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       description: DataTypes.TEXT,
+      images: {
+        type: DataTypes.TEXT,
+        get() {
+          const rawValue = this.getDataValue("images");
+          return rawValue ? JSON.parse(rawValue) : [];
+        },
+        set(images) {
+          return this.setDataValue("images", JSON.stringify(images));
+        },
+      },
     },
     {
       sequelize,

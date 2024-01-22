@@ -5,30 +5,29 @@ const cloudinary = require("cloudinary").v2;
 const createPropertyType = async (req, res, next) => {
   try {
     const { name, description, images } = req.body;
-    const response = await db.PropertyType.findOrCreate({
-      where: { name },
-      defaults: {
-        name: name,
-        description: description,
-      },
+    const checkName = await db.PropertyType.findAll({ name: name });
+    if (checkName.length > 0)
+      return throwError(402, "Property type name already exist", res, next);
+    const image = await cloudinary.uploader.upload(images[0], {
+      folder: "PERN/PropertyType",
     });
-    if (response[1] === false) {
-      return throwError(409, "PropertyType already exist", res, next);
+    const response = await db.PropertyType.create({
+      name: name,
+      description: description,
+      images: [
+        {
+          public_id: image.public_id,
+          url: image.url,
+        },
+      ],
+    });
+
+    if (!response) {
+      return throwError(409, "Failed to create PropertyType", res, next);
     }
-    const cloudinayImage = await images.map(async (image) => {
-      const images = await cloudinary.uploader.upload(image, {
-        folder: "PERN/PropertyType",
-      });
-      await db.Image.create({
-        publicId: images.public_id,
-        url: images.url,
-        propertyTypeId: response[0].id,
-      });
-    });
-    await Promise.all(cloudinayImage);
 
     return res.status(200).json({
-      success: response[1],
+      success: true,
       response,
     });
   } catch (error) {
@@ -47,13 +46,6 @@ const getAllPropertyType = async (req, res, next) => {
         "LIKE",
         `%${name.toLowerCase()}%`
       );
-    options.include = [
-      {
-        model: db.Image,
-        as: "Images",
-        attributes: ["publicId", "url"],
-      },
-    ];
     //sort data
     if (sort) {
       const order = sort
@@ -92,20 +84,12 @@ const getAllPropertyType = async (req, res, next) => {
 const deletePropertyType = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const response = await db.PropertyType.findByPk(id, {
-      include: [
-        {
-          model: db.Image,
-          as: "Images",
-          attributes: ["publicId"],
-        },
-      ],
-    });
+    const response = await db.PropertyType.findByPk(id);
     if (!response) {
       return throwError(401, "PropertyType not default", res, next);
     }
-    const deleteImageCloudinary = await response.Images.map(async (image) => {
-      const res = await cloudinary.uploader.destroy(image.publicId);
+    const deleteImageCloudinary = await response.images.map(async (image) => {
+      await cloudinary.uploader.destroy(image.public_id);
     });
     await Promise.all(deleteImageCloudinary);
     await db.PropertyType.destroy({
@@ -122,15 +106,7 @@ const deletePropertyType = async (req, res, next) => {
 const getPropertyType = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const response = await db.PropertyType.findByPk(id, {
-      include: [
-        {
-          model: db.Image,
-          as: "Images",
-          attributes: ["publicId"],
-        },
-      ],
-    });
+    const response = await db.PropertyType.findByPk(id, {});
     if (!response) {
       return throwError(401, "PropertyType not default", res, next);
     }
@@ -146,48 +122,49 @@ const updatePropertyType = async (req, res, next) => {
   try {
     const data = req.body;
     const id = req.params.id;
-    const propertyType = await db.PropertyType.findByPk(id, {
-      include: [
-        {
-          model: db.Image,
-          as: "Images",
-          attributes: ["publicId"],
-        },
-      ],
-    });
-
+    const propertyType = await db.PropertyType.findByPk(id);
+    const listImage = [];
     if (!propertyType) {
       return throwError(401, "PropertyType not default", res, next);
     }
-    if (data?.images && data?.images?.length !== 0) {
-      const deleteImageCloudinary = await propertyType.Images.map(
+    let ischeck = false;
+    const checkCloudinay = await data.images.map(async (image) => {
+      if (image?.url?.includes("cloudinary")) {
+        ischeck = true;
+      }
+    });
+    Promise.all(checkCloudinay);
+    if (!ischeck) {
+      const deleteImageCloudinary = await propertyType.images.map(
         async (image) => {
-          await cloudinary.uploader.destroy(image.publicId);
+          await cloudinary.uploader.destroy(image.public_id);
         }
       );
       await Promise.all(deleteImageCloudinary);
-      await db.Image.destroy({
-        where: { propertyTypeId: id },
-      });
       const cloudinayImage = await data?.images?.map(async (image) => {
-        const images = await cloudinary.uploader.upload(image, {
+        const respose = await cloudinary.uploader.upload(image, {
           folder: "PERN/PropertyType",
         });
-        await db.Image.create({
-          publicId: images.public_id,
-          url: images.url,
-          propertyTypeId: propertyType.id,
+        listImage.push({
+          public_id: respose.public_id,
+          url: respose.url,
         });
       });
-
       await Promise.all(cloudinayImage);
+      await db.PropertyType.update(
+        { name: data.name, description: data.description, images: listImage },
+        {
+          where: { id },
+        }
+      );
+    } else {
+      await db.PropertyType.update(
+        { name: data.name, description: data.description },
+        {
+          where: { id },
+        }
+      );
     }
-    await db.PropertyType.update(
-      { name: data.name, description: data.description },
-      {
-        where: { id },
-      }
-    );
     return res.status(200).json({
       success: true,
       mes: "Update successful",
