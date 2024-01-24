@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Property.hasMany(models.Image, {
+        foreignKey: "propertyId",
+        as: "images",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   Property.init(
@@ -21,23 +27,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       price: DataTypes.FLOAT,
       propertyTypeId: DataTypes.UUID,
+      address: DataTypes.STRING,
       status: {
         type: DataTypes.ENUM,
-        values: ["PENDING", "CANCLE", "APPROVED"],
+        values: ["PENDING", "SOLD", "RENTED"],
       },
       isAvailable: DataTypes.BOOLEAN,
-      images: {
-        type: DataTypes.TEXT,
-        get() {
-          const rawValthue = this.getDataValue("image");
-          return rawValthue ? JSON.parse(rawValthue) : [];
-        },
-        set(arrayImages) {
-          return this.setDataValue("image", JSON.stringify(arrayImages));
-        },
-      },
       featureImage: DataTypes.STRING,
-      postedBy: DataTypes.UUID,
       bedRoom: DataTypes.INTEGER,
       bathRoom: DataTypes.INTEGER,
       yearBuild: DataTypes.INTEGER,

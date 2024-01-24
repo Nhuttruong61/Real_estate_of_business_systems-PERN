@@ -9,13 +9,13 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
-      propertyTypeId: {
-        allowNull: false,
+      propertyId: {
         type: Sequelize.UUID,
+        allowNull: true,
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
         references: {
-          model: "PropertyTypes",
+          model: "Properties",
           key: "id",
         },
       },

@@ -67,10 +67,10 @@ const deleteUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { name, phone, email, address } = req.body;
+    const { name, email, address } = req.body;
     const user = await db.User.findByPk(id);
     if (!user) return throwError(401, "User not default", res, next);
-    const userUpdate = await user.update({ name, phone, email, address });
+    const userUpdate = await user.update({ name, email, address });
     return res.status(200).json({
       success: true,
       mes: "Update successful",

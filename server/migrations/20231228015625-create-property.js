@@ -34,22 +34,22 @@ module.exports = {
           key: "id",
         },
       },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       status: {
         type: Sequelize.ENUM,
-        values: ["PENDING", "CANCLE", "APPROVED"],
+        values: ["PENDING", "SOLD", "RENTED"],
         defaultValue: "PENDING",
       },
       isAvailable: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },
-      postedBy: {
-        type: Sequelize.UUID,
+      featureImage: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-          model: "Users",
-          key: "id",
-        },
       },
       bedRoom: {
         type: Sequelize.INTEGER,

@@ -9,12 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      PropertyType.hasMany(models.Image, {
-        foreignKey: "propertyTypeId",
-        as: "Images",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
     }
   }
   PropertyType.init(
