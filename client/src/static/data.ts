@@ -1,6 +1,6 @@
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
-import { IoHomeOutline, IoSettingsOutline } from "react-icons/io5";
+import { IoHomeOutline, } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 export const sideBarItem = [{

@@ -1,8 +1,14 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import background from "../../public/images/backgound.png";
 import HeaderLayout from "@/components/Header/HeaderLayout";
+import SearchLocation from "@/components/Home/SearchLocation";
+import PropertyLocation from "@/components/Home/PropertyLocation";
+import PropertyType from "@/components/Home/PropertyType";
+import PropertySale from "@/components/Home/PropertySale";
 
 export default function Home() {
+  const [valueSearch, setValueSearch] = useState<any>({});
   return (
     <main className="flex  flex-col w-full ">
       <div
@@ -24,6 +30,21 @@ export default function Home() {
             Proin sodales ultrices nulla blandit volutpat.
           </div>
         </div>
+        <div className="absolute w-full z-50 bottom-[-30px] flex justify-center">
+          <SearchLocation
+            valueSearch={valueSearch}
+            setValueSearch={setValueSearch}
+          />
+        </div>
+      </div>
+      <div className="w-full px-[10%]">
+        <PropertyLocation />
+      </div>
+      <div className="w-full bg-[#edeff6] my-8">
+        <PropertyType />
+      </div>
+      <div className="w-full ">
+        <PropertySale />
       </div>
     </main>
   );

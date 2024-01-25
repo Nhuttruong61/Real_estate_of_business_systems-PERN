@@ -30,8 +30,10 @@ function HeaderLayout() {
     }
   };
   useEffect(() => {
-    fetchToken();
-  }, []);
+    if (current === null) {
+      fetchToken();
+    }
+  }, [current]);
   return (
     <div className="z-50">
       <TopHeader />

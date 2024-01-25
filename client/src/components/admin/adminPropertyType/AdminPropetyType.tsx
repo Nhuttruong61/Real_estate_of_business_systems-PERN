@@ -120,6 +120,7 @@ function AdminPropetyType({ setActive }: any) {
   const mutationUpdate = useMutationHooks((data: any) => {
     setIsShowDrawer(false);
     const { id, createdAt, updatedAt, stt, ...rest } = data;
+
     const res: any = updatePropertyType(id, rest);
     return res;
   });

@@ -8,6 +8,7 @@ interface ProqInputFile {
 }
 
 function InputFile({ setIData, data, multiple }: ProqInputFile) {
+  console.log(data);
   const handleOnchageImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     const results: string[] = [];
@@ -42,18 +43,15 @@ function InputFile({ setIData, data, multiple }: ProqInputFile) {
           onChange={(e) => handleOnchageImage(e)}
         />
       </div>
-      <div className="flex">
-        {data?.images?.map((el: any, index: number) => (
-          <div key={index} className="p-2">
-            <Image src={el} alt="" width={120} height={120} />
-          </div>
-        ))}
-      </div>
-      {data?.Images && data.images?.length === 0 && (
+      {data?.images && (
         <div className="flex">
-          {data?.Images?.map((item: any, index: number) => (
+          {data?.images?.map((item: any, index: number) => (
             <div key={index} className="p-2">
-              <Image src={item?.url} alt="" width={120} height={120} />
+              {item?.url ? (
+                <Image src={item?.url} alt="" width={120} height={120} />
+              ) : (
+                <Image src={item} alt="" width={120} height={120} />
+              )}
             </div>
           ))}
         </div>

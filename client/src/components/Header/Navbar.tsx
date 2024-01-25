@@ -1,25 +1,25 @@
 "use client";
-import React, { memo, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import Link from "next/link";
-import { navbar } from "@/static";
+import { navbar } from "@/static/static";
 import Button from "../common/Button";
-import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import Modal from "../common/Modal";
 import Account from "../account/Account";
-function Navbar() {
-  const router = useRouter();
+import withBaseComponent from "@/hocs/withBaseComponent";
+function Navbar({ router }: any) {
   const pathname = usePathname();
   const [isShownModal, setIsShownModal] = useState<boolean>(false);
+  const [isShownAddListing, setIsShownAddListing] = useState<boolean>(false);
   const [user, setUser] = useState<any>({
     phone: "",
     name: "",
     password: "",
     role: "",
   });
-  const { token } = useSelector((state: any) => state.user);
+  const { token, current } = useSelector((state: any) => state.user);
   const handleNavigate = (nav: any) => {
     router.push(nav.href);
   };
@@ -49,6 +49,7 @@ function Navbar() {
             </div>
           );
         })}
+
         {!token ? (
           <Button
             className={`bg-none  border px-2 rounded-md`}
@@ -56,13 +57,16 @@ function Navbar() {
             onClick={() => setIsShownModal(true)}
           />
         ) : (
-          <Button
-            className={`bg-none  border px-2 rounded-md`}
-            text="Add Listing"
-            onClick={() => setIsShownModal(true)}
-          />
+          <div className="flex relative">
+            <Button
+              className={`bg-none  border px-2 rounded-md`}
+              text="Add Listing"
+              onClick={() => setIsShownAddListing(!isShownAddListing)}
+            />
+          </div>
         )}
       </div>
+
       <Modal
         show={isShownModal}
         setIsShownModal={setIsShownModal}
@@ -79,4 +83,4 @@ function Navbar() {
   );
 }
 
-export default memo(Navbar);
+export default withBaseComponent(memo(Navbar));

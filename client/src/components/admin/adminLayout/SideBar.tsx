@@ -42,7 +42,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
   };
   useEffect(() => {
     fetchToken();
-  }, []);
+  }, [current]);
   const handleClickSidebar = (index: number) => {
     setActive(index);
     setActiveTab((value: any) => {
@@ -154,7 +154,7 @@ const SideBar = ({ active, setActive }: proqLayout) => {
                 return (
                   <div
                     key={index}
-                    className="flex  overflow-y-auto items-center px-2 py-1 cursor-pointer hover:bg-[#ebebeb] hover:text-black"
+                    className="flex  overflow-y-auto items-center px-2 py-1 cursor-pointer hover:bg-[#ebebeb] hover:text-black "
                     onClick={() => handleSetting(el)}
                   >
                     <el.icon className="text-[24px]" />

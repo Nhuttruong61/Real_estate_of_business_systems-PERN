@@ -105,9 +105,8 @@ function AdminUser() {
   ];
   const mutationUpdate = useMutationHooks(async (data: any) => {
     setIsShowDrawer(false);
-    const { id, createdAt, refeshToken, stt, updatedAt, ...rest } = data;
-    const updatedData: any = { id, ...rest };
-    const res: any = await updateUser(updatedData);
+    const { id, phone, createdAt, refeshToken, stt, updatedAt, ...rest } = data;
+    const res: any = await updateUser(id, rest);
     return res;
   });
   const { isPending: isLoadingUpdate, isSuccess: isSuccessUpdate } =
@@ -180,6 +179,7 @@ function AdminUser() {
             <span className="font-[400]">Phone Number</span>
             <Input
               value={editUser.phone}
+              readOnly
               onChange={(e: any) =>
                 setEditUser({
                   ...editUser,

@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  onBlur?: any;
 }
 
 function Button({
@@ -14,6 +15,7 @@ function Button({
   onClick,
   type = "button",
   disabled = false,
+  onBlur,
 }: ButtonProps) {
   return (
     <button
@@ -21,6 +23,7 @@ function Button({
       className={className}
       onClick={onClick}
       disabled={disabled}
+      onBlur={onBlur}
     >
       {text}
     </button>
