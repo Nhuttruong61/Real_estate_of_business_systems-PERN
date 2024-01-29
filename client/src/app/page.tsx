@@ -6,6 +6,7 @@ import SearchLocation from "@/components/Home/SearchLocation";
 import PropertyLocation from "@/components/Home/PropertyLocation";
 import PropertyType from "@/components/Home/PropertyType";
 import PropertySale from "@/components/Home/PropertySale";
+import Propertyoutstanding from "@/components/Home/Propertyoutstanding";
 
 export default function Home() {
   const [valueSearch, setValueSearch] = useState<any>({});
@@ -45,6 +46,9 @@ export default function Home() {
       </div>
       <div className="w-full ">
         <PropertySale />
+      </div>
+      <div className="w-full ">
+        <Propertyoutstanding />
       </div>
     </main>
   );

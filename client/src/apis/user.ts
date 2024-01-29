@@ -6,6 +6,10 @@ export const getCurrentApi = async (token?: string) => {
     })
     return res.data as any
 }
+export const getUsserId = async (id: string) => {
+    const res = await axios.get(`/user/get-user-id/${id}`)
+    return res.data as any
+}
 
 export const getUsers = async () => {
     const res = await axios.get("/user/get-users")

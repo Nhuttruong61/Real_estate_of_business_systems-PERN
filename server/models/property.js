@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      Property.belongsTo(models.User, {
+        foreignKey: "owner",
+        as: "ownerInfo",
+      });
     }
   }
   Property.init(

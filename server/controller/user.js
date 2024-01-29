@@ -17,6 +17,23 @@ const getUser = async (req, res, next) => {
     return throwError(500, error.message, res, next);
   }
 };
+
+const getUserId = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const response = await db.User.findByPk(id, {
+      attributes: { exclude: ["password"] },
+    });
+    if (!response) return throwError(401, "User not default", res, next);
+    return res.json({
+      success: Boolean(response) ? "Got." : "Couldn't find",
+      response,
+    });
+  } catch (error) {
+    return throwError(500, error.message, res, next);
+  }
+};
+
 const getUsers = async (req, res, next) => {
   try {
     const { sort, name, ...query } = req.query;
@@ -85,4 +102,5 @@ module.exports = {
   getUsers,
   deleteUser,
   updateUser,
+  getUserId,
 };

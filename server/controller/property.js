@@ -56,7 +56,7 @@ const createProperty = async (req, res, next) => {
 
 const getAllProperty = async (req, res, next) => {
   try {
-    const { page, name, fields, sort, ...query } = req.query;
+    const { limit, page, name, fields, sort, ...query } = req.query;
     const options = {};
     if (fields) options.attributes = fields.split(",");
     if (name)
@@ -65,10 +65,17 @@ const getAllProperty = async (req, res, next) => {
         "LIKE",
         `%${name.toLowerCase()}%`
       );
-    options.include = {
-      model: db.Image,
-      as: "images",
-    };
+    options.include = [
+      {
+        model: db.Image,
+        as: "images",
+      },
+      {
+        model: db.User,
+        attributes: ["id", "name", "email", "phone", "avatar"],
+        as: "ownerInfo",
+      },
+    ];
     //sort data
     if (sort) {
       const order = sort
@@ -80,7 +87,20 @@ const getAllProperty = async (req, res, next) => {
         order: order,
       };
     }
-    const response = await db.Property.findAll({
+    if (!limit) {
+      const response = await db.Property.findAll({
+        where: query,
+        ...options,
+      });
+      return res.status(200).json({
+        success: true,
+        response,
+      });
+    }
+    const offset = (page - 1) * limit;
+    if (offset) options.offset = offset;
+    options.limit = limit;
+    const response = await db.Property.findAndCountAll({
       where: query,
       ...options,
     });

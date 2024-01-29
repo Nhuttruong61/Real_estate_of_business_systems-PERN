@@ -8,7 +8,7 @@ function PropertyLocation() {
   return (
     <div className="w-full">
       <div className="flex flex-col mt-[80px] text-center">
-        <h1 className="text-4xl font-[500] pb-5">Propertice by Area</h1>
+        <p className="text-4xl font-[500] pb-5">Propertice by Area</p>
         <p className="text-gray-400">
           Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
           posuere

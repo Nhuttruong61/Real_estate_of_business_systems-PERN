@@ -5,7 +5,7 @@ const cloudinary = require("cloudinary").v2;
 const createPropertyType = async (req, res, next) => {
   try {
     const { name, description, images } = req.body;
-    const checkName = await db.PropertyType.findAll({ name: name });
+    const checkName = await db.PropertyType.findAll({ where: { name: name } });
     if (checkName.length > 0)
       return throwError(402, "Property type name already exist", res, next);
     const image = await cloudinary.uploader.upload(images[0], {
