@@ -35,7 +35,7 @@ function TopHeader({ router, dispatch }: any) {
   }, []);
   return (
     <div
-      className={`text-white h-[85px] border-b border-white px-[8%] flex justify-between items-center ${
+      className={`text-white h-[85px] border-b border-white md:px-[8%] w-full flex justify-between items-center ${
         pathname !== "/" && "bg-[#2c3a61]"
       }`}
     >

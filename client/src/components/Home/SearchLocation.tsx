@@ -2,8 +2,10 @@
 import React, { memo } from "react";
 import { getAllcity } from "@/apis/province";
 import { useQuery } from "@tanstack/react-query";
+import withBaseComponent from "@/hocs/withBaseComponent";
 
-function SearchLocation({ valueSearch, setValueSearch }: any) {
+function SearchLocation({ valueSearch, setValueSearch, queryClient }: any) {
+  const typeSearch = queryClient.getQueryData(["propertyType"]);
   const fetchCity = async () => {
     const res = await getAllcity();
     return res.data;
@@ -18,6 +20,7 @@ function SearchLocation({ valueSearch, setValueSearch }: any) {
   const handleOnchage = (e: any) => {
     setValueSearch({ ...valueSearch, city: e.target.value });
   };
+
   return (
     <div className=" bg-white  shadow-sm rounded-md ">
       <div className="flex items-center justify-between md:h-[128px] md:w-[1096px]">
@@ -29,7 +32,7 @@ function SearchLocation({ valueSearch, setValueSearch }: any) {
             id=""
             onChange={handleOnchage}
           >
-            <option value="" className="text-gray-400">
+            <option disabled value="" className="text-gray-400">
               Select your city
             </option>
             {listCity?.map((item: any) => {
@@ -49,9 +52,16 @@ function SearchLocation({ valueSearch, setValueSearch }: any) {
             id=""
             onChange={handleOnchage}
           >
-            <option value="" className="text-gray-400">
+            <option disabled value="" className="text-gray-400">
               Select property type
             </option>
+            {typeSearch?.map((item: any) => {
+              return (
+                <option value={item.name} key={item?.id}>
+                  {item?.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="flex flex-col justify-center items-center  w-full border-r-2">
@@ -72,4 +82,4 @@ function SearchLocation({ valueSearch, setValueSearch }: any) {
   );
 }
 
-export default memo(SearchLocation);
+export default withBaseComponent(memo(SearchLocation));

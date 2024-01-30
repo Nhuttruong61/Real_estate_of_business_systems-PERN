@@ -27,7 +27,7 @@ function CartProperty({ className, data }: ProqProperties) {
             alt=""
             width={600}
             height={600}
-            className="w-full object-cover h-[32vh]"
+            className="w-full object-cover h-[32vh] rounded-md"
           />
         </div>
         <div className="w-full flex-col py-1 md:text-2xl">

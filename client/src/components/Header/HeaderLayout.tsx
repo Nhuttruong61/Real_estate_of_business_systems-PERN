@@ -35,7 +35,7 @@ function HeaderLayout() {
     }
   }, [current]);
   return (
-    <div className="z-50">
+    <div className="z-50 w-full">
       <TopHeader />
       <Navbar />
     </div>

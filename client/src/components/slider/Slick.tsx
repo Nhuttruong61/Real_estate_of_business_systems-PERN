@@ -16,13 +16,44 @@ function Slick() {
     autoplay: true,
     autoplaySpeed: 2000,
     cssEase: "linear",
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <Slider {...settings}>
       <div className="px-2">
         <div className="relative">
-          <Image src={Rectangle20} alt="" className="h-[420px] object-cover" />
+          <Image
+            src={Rectangle20}
+            alt=""
+            className="h-[420px] object-cover rounded-md"
+          />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
               <div className="flex items-center w-full">
@@ -43,7 +74,11 @@ function Slick() {
       </div>
       <div className="px-2">
         <div className="relative">
-          <Image src={Rectangle20} alt="" className="h-[420px] object-cover" />
+          <Image
+            src={Rectangle20}
+            alt=""
+            className="h-[420px] object-cover rounded-md"
+          />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
               <div className="flex items-center w-full">
@@ -64,7 +99,11 @@ function Slick() {
       </div>
       <div className="px-2">
         <div className="relative">
-          <Image src={Rectangle20} alt="" className="h-[420px] object-cover" />
+          <Image
+            src={Rectangle20}
+            alt=""
+            className="h-[420px] object-cover rounded-md"
+          />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
               <div className="flex items-center w-full">
@@ -85,7 +124,11 @@ function Slick() {
       </div>
       <div className="px-2">
         <div className="relative">
-          <Image src={Rectangle20} alt="" className="h-[420px] object-cover" />
+          <Image
+            src={Rectangle20}
+            alt=""
+            className="h-[420px] object-cover rounded-md"
+          />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
               <div className="flex items-center w-full">
@@ -106,7 +149,11 @@ function Slick() {
       </div>
       <div className="px-2">
         <div className="relative">
-          <Image src={Rectangle20} alt="" className="h-[420px] object-cover" />
+          <Image
+            src={Rectangle20}
+            alt=""
+            className="h-[420px] object-cover rounded-md"
+          />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
               <div className="flex items-center w-full">
@@ -127,7 +174,11 @@ function Slick() {
       </div>
       <div className="px-2">
         <div className="relative">
-          <Image src={Rectangle20} alt="" className="h-[420px] object-cover" />
+          <Image
+            src={Rectangle20}
+            alt=""
+            className="h-[420px] object-cover rounded-md"
+          />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
               <div className="flex items-center w-full">

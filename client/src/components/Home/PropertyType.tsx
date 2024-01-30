@@ -42,7 +42,7 @@ function PropertyType() {
             cubilia curae; Proin sodales ultrices nulla blandit volutpat.
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-2 grid-cols-1 pt-8 pb-4 h-full overflow-hidden ">
+        <div className="grid grid-flow-col-1  md:grid-cols-3 gap-5 grid-cols-1 pt-8 pb-4 h-full  ">
           {listData?.map((item: any) => {
             return (
               <div key={item.id} className="relative cursor-pointer">
@@ -51,7 +51,7 @@ function PropertyType() {
                   alt=""
                   width={424}
                   height={242}
-                  className="object-cover h-[241px]"
+                  className="object-cover h-[241px] rounded-md"
                 />
                 <span className="absolute left-0 z-20  text-white top-8 px-6">
                   <IoHomeOutline className="text-[42px]" />

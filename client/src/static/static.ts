@@ -64,3 +64,58 @@ export const locationTop = [{
 }
 
 ]
+
+
+export const footerItem = [{
+    id: "1",
+    title: "Features",
+    item: [{
+        name: "Home",
+        link: "/"
+    },
+    {
+        name: "Blog",
+        link: "/blog"
+    },
+    {
+        name: "Contact",
+        link: "/contact"
+    },
+    ]
+}
+    ,
+{
+    id: "2",
+    title: "Company",
+    item: [{
+        name: "Home",
+        link: "/"
+    },
+    {
+        name: "Blog",
+        link: "/blog"
+    },
+    {
+        name: "Contact",
+        link: "/contact"
+    },
+    ]
+},
+{
+    id: "3",
+    title: "Team and policies",
+    item: [{
+        name: "Terms of servies",
+        link: "/"
+    },
+    {
+        name: "Privacy Policy",
+        link: "/"
+    },
+    {
+        name: "Security",
+        link: "/"
+    },
+    ]
+}
+]

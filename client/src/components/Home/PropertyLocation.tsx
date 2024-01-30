@@ -17,10 +17,10 @@ function PropertyLocation() {
           cubilia curae; Proin sodales ultrices nulla blandit volutpat.
         </p>
       </div>
-      <div className="grid md:grid-cols-3 gap-2 grid-cols-1 pt-8 pb-4">
+      <div className="grid md:grid-cols-3 gap-5 grid-cols-1 pt-8 pb-4">
         {locationTop.map((item, index) => {
           return (
-            <div key={index} className="relative">
+            <div key={index} className="relative ">
               <Image src={item.img} alt="" />
               <span className="absolute left-0 z-20  text-white top-8 px-6">
                 <h1 className=" font-[500]  text-[26px] ">{item.name}</h1>
@@ -33,12 +33,12 @@ function PropertyLocation() {
           );
         })}
       </div>
-      <div className="grid md:grid-cols-subgrid grid-cols-1  pr-1 md:gap-2 ">
-        <div className="md:w-[879px] md:col-start-1 relative rounded-md  ">
+      <div className="md:flex ">
+        <div className="md:w-[880px] w-[400px] relative rounded-md pr-[10px] ">
           <Image
             src={Rectangle14}
             alt=""
-            className="object-cover md:w-[879px] h-[241px]"
+            className="object-cover h-[241px] rounded-md"
           />
           <span className="absolute left-0 z-20  text-white top-8 px-6">
             <h1 className=" font-[500]  text-[26px] ">Da Lat</h1>
@@ -54,8 +54,12 @@ function PropertyLocation() {
           </span>
         </div>
 
-        <div className="md:col-start-3 relative pr-0 mt-4 md:mt-0 md:pr-[18px] ">
-          <Image src={Rectangle11} alt="" className="h-[241px]" />
+        <div className=" relative md:pl-[10px] mt-4 md:mt-0 ">
+          <Image
+            src={Rectangle11}
+            alt=""
+            className="md:h-[241px] object-cover rounded-md"
+          />
           <span className="absolute left-0 z-20  text-white top-8 px-6">
             <h1 className=" font-[500]  text-[26px] ">Ha Noi</h1>
             <p className="pt-1">25 listings</p>
