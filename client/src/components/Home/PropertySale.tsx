@@ -26,9 +26,8 @@ function PropertySale() {
     setLimit((prevLimit) => prevLimit + 6);
   };
 
-  console.log(data);
   return (
-    <div className="px-[10%] ">
+    <div className="px-[12%] ">
       <div className="w-full h-auto">
         <div className="flex flex-col mt-[80px] text-center">
           <h1 className="text-4xl font-[500] pb-5">

@@ -4,8 +4,8 @@ interface ProqProperties {
   className: string;
   data: any;
 }
-import { MdOutlineBed } from "react-icons/md";
-import { PiBathtubBold } from "react-icons/pi";
+import { IoBedOutline } from "react-icons/io5";
+import { PiBathtub } from "react-icons/pi";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
@@ -19,18 +19,20 @@ function CartProperty({ className, data }: ProqProperties) {
   };
 
   return (
-    <div className={`flex flex-col w-full ${className}`}>
-      <div className="relative w-full">
+    <div
+      className={`flex flex-col w-full hover:scale-104 hover:shadow-gray-400 hover:shadow-md hover:scale-105  ${className}`}
+    >
+      <div className="relative w-full ">
         <div className="w-full ">
           <Image
             src={data.images[0].url || ""}
             alt=""
             width={600}
             height={600}
-            className="w-full object-cover h-[32vh] rounded-md"
+            className="w-full object-cover md:h-[32vh]  rounded-md"
           />
         </div>
-        <div className="w-full flex-col py-1 md:text-2xl">
+        <div className="w-full flex-col py-1 md:text-2xl px-2">
           <h1 className=" font-[500]">
             {data?.name.length < 30
               ? data?.name.toUpperCase()
@@ -39,11 +41,11 @@ function CartProperty({ className, data }: ProqProperties) {
           <p className="text-[#4A60A1] font-bold">$ {data.price}</p>
         </div>
       </div>
-      <div className="flex item center text-gray-400 py-1">
+      <div className="flex item center text-gray-400 py-1 px-2">
         {data?.bathRoom && (
           <span className="flex items-center pr-2 ">
             <span className="pr-2">
-              <MdOutlineBed className="text-[24px]" />
+              <IoBedOutline className="text-[28px]" />
             </span>
             <p> {data?.bathRoom}</p>
           </span>
@@ -51,7 +53,7 @@ function CartProperty({ className, data }: ProqProperties) {
 
         <span className="flex items-center pr-2">
           <span className="pr-2">
-            <PiBathtubBold className="text-[28px]" />
+            <PiBathtub className="text-[28px]" />
           </span>
           <p> {data?.bedRoom}</p>
         </span>
@@ -64,7 +66,7 @@ function CartProperty({ className, data }: ProqProperties) {
           </span>
         )}
       </div>
-      <div className=" flex justify-between items-center border-t-2  py-2">
+      <div className=" flex justify-between items-center border-t-2  py-2 px-2">
         <div className="flex">
           {data?.ownerInfo && (
             <div className="flex justify-center items-center">

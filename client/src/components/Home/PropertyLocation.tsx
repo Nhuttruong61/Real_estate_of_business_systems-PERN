@@ -20,7 +20,10 @@ function PropertyLocation() {
       <div className="grid md:grid-cols-3 gap-5 grid-cols-1 pt-8 pb-4">
         {locationTop.map((item, index) => {
           return (
-            <div key={index} className="relative ">
+            <div
+              key={index}
+              className="relative cursor-pointer  hover:shadow-gray-400 hover:shadow-md  "
+            >
               <Image src={item.img} alt="" />
               <span className="absolute left-0 z-20  text-white top-8 px-6">
                 <h1 className=" font-[500]  text-[26px] ">{item.name}</h1>
@@ -34,7 +37,7 @@ function PropertyLocation() {
         })}
       </div>
       <div className="md:flex ">
-        <div className="md:w-[880px] w-[400px] relative rounded-md pr-[10px] ">
+        <div className="md:w-[880px] w-[400px] relative rounded-md mr-[10px] cursor-pointer hover:shadow-gray-400 hover:shadow-md">
           <Image
             src={Rectangle14}
             alt=""
@@ -54,7 +57,7 @@ function PropertyLocation() {
           </span>
         </div>
 
-        <div className=" relative md:pl-[10px] mt-4 md:mt-0 ">
+        <div className=" relative md:ml-[10px] mt-4 md:mt-0 cursor-pointer hover:shadow-gray-400 hover:shadow-md ">
           <Image
             src={Rectangle11}
             alt=""

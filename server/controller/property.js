@@ -1,6 +1,7 @@
 const { throwError } = require("../middleware/errorHandler");
 const db = require("../models");
 const cloudinary = require("cloudinary").v2;
+const { Sequelize } = require("sequelize");
 const createProperty = async (req, res, next) => {
   try {
     const {
@@ -59,12 +60,6 @@ const getAllProperty = async (req, res, next) => {
     const { limit, page, name, fields, sort, ...query } = req.query;
     const options = {};
     if (fields) options.attributes = fields.split(",");
-    if (name)
-      query.name = Sequelize.where(
-        Sequelize.fn("LOWER", Sequelize.col("name")),
-        "LIKE",
-        `%${name.toLowerCase()}%`
-      );
     options.include = [
       {
         model: db.Image,
@@ -75,6 +70,18 @@ const getAllProperty = async (req, res, next) => {
         attributes: ["id", "name", "email", "phone", "avatar"],
         as: "ownerInfo",
       },
+      {
+        model: db.PropertyType,
+        attributes: ["id", "name"],
+        as: "propertyType",
+        where: name
+          ? Sequelize.where(
+              Sequelize.fn("LOWER", Sequelize.col("propertyType.name")),
+              "LIKE",
+              `%${name.toLowerCase()}%`
+            )
+          : {},
+      },
     ];
     //sort data
     if (sort) {
@@ -83,9 +90,7 @@ const getAllProperty = async (req, res, next) => {
         .map((item) =>
           item.startsWith("-") ? [item.replace("-", ""), "DESC"] : [item, "ASC"]
         );
-      options = {
-        order: order,
-      };
+      options.order = order;
     }
     if (!limit) {
       const response = await db.Property.findAll({
@@ -100,13 +105,19 @@ const getAllProperty = async (req, res, next) => {
     const offset = (page - 1) * limit;
     if (offset) options.offset = offset;
     options.limit = limit;
-    const response = await db.Property.findAndCountAll({
+
+    const count = await db.Property.count({
+      where: query,
+    });
+
+    const response = await db.Property.findAll({
       where: query,
       ...options,
     });
     return res.status(200).json({
       success: true,
       response,
+      count,
     });
   } catch (error) {
     return throwError(500, error.message, res, next);

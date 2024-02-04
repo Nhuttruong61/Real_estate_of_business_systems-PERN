@@ -119,3 +119,38 @@ export const footerItem = [{
     ]
 }
 ]
+export const optiionSort = [{
+    id: 1,
+    name: "News",
+    value: "name"
+},
+{
+    id: 2,
+    name: "Oldest",
+    value: "-name"
+},
+]
+
+export const optionFilterProperty = [
+    {
+        id: 1,
+        name: "All Properties",
+        value: ""
+    },
+    {
+        id: 2,
+        name: "For Buy",
+        value: ""
+    },
+    {
+        id: 3,
+        name: "For Sale",
+        value: ""
+    },
+    {
+        id: 4,
+        name: "For Rent",
+        value: ""
+    }
+]
+

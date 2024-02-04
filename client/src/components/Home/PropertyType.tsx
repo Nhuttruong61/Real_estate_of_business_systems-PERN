@@ -30,7 +30,7 @@ function PropertyType() {
   {
   }
   return (
-    <div className="px-[10%] my-10">
+    <div className="px-[12%] my-10">
       <div className="w-full h-auto">
         <div className="flex flex-col mt-[80px] text-center">
           <h1 className="text-4xl font-[500] pb-5">Propertice Type</h1>
@@ -45,7 +45,10 @@ function PropertyType() {
         <div className="grid grid-flow-col-1  md:grid-cols-3 gap-5 grid-cols-1 pt-8 pb-4 h-full  ">
           {listData?.map((item: any) => {
             return (
-              <div key={item.id} className="relative cursor-pointer">
+              <div
+                key={item.id}
+                className="relative cursor-pointer hover:shadow-gray-400 hover:shadow-md"
+              >
                 <Image
                   src={item?.images[0]?.url}
                   alt=""

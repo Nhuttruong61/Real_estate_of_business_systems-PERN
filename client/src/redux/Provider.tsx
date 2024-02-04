@@ -8,6 +8,7 @@ import HeaderLayout from "@/components/Header/HeaderLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Footer from "@/components/footer/Footer";
+import Background from "@/components/Header/Background";
 function Providers({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [queryClient] = React.useState(() => new QueryClient());
@@ -16,6 +17,10 @@ function Providers({ children }: { children: React.ReactNode }) {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           {pathname !== "/" && pathname !== "/admin" && <HeaderLayout />}
+          {pathname !== "/" && pathname !== "/admin" && (
+            <Background pathname={pathname} />
+          )}
+
           {children}
           {pathname !== "/admin" && <Footer />}
         </PersistGate>

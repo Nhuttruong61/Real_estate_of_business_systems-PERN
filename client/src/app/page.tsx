@@ -57,7 +57,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="w-full px-[10%]">
+      <div className="w-full px-[12%]">
         <PropertyLocation />
       </div>
       <div className="w-full bg-[#edeff6] my-8">

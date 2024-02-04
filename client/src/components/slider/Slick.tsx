@@ -52,7 +52,7 @@ function Slick() {
           <Image
             src={Rectangle20}
             alt=""
-            className="h-[420px] object-cover rounded-md"
+            className="h-[420px] object-cover rounded-md ."
           />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
@@ -77,7 +77,7 @@ function Slick() {
           <Image
             src={Rectangle20}
             alt=""
-            className="h-[420px] object-cover rounded-md"
+            className="h-[420px] object-cover rounded-md ."
           />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
@@ -102,7 +102,7 @@ function Slick() {
           <Image
             src={Rectangle20}
             alt=""
-            className="h-[420px] object-cover rounded-md"
+            className="h-[420px] object-cover rounded-md "
           />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
@@ -127,7 +127,7 @@ function Slick() {
           <Image
             src={Rectangle20}
             alt=""
-            className="h-[420px] object-cover rounded-md"
+            className="h-[420px] object-cover rounded-md ."
           />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
@@ -152,7 +152,7 @@ function Slick() {
           <Image
             src={Rectangle20}
             alt=""
-            className="h-[420px] object-cover rounded-md"
+            className="h-[420px] object-cover rounded-md ."
           />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">
@@ -177,7 +177,7 @@ function Slick() {
           <Image
             src={Rectangle20}
             alt=""
-            className="h-[420px] object-cover rounded-md"
+            className="h-[420px] object-cover rounded-md ."
           />
           <div className="absolute left-0 px-6 bottom-8 text-white w-full">
             <div className="flex justify-between">

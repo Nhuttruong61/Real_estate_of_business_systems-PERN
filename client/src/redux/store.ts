@@ -11,10 +11,12 @@ import {
     REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import propertyTypeSlice from "./slices/propertyTypeSlice";
 
 
 const rootReducer = combineReducers({
     user: userSlice,
+    propertyType: propertyTypeSlice
 });
 const persistConfig = {
     key: 'pern',

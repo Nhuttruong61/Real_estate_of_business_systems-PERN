@@ -58,7 +58,7 @@ function CreatePropertyType({ setActive }: proqs) {
         <p className="text-[26px] font-bold w-full text-center">
           Create new PropertyType
         </p>
-        <form onSubmit={(e) => handleCreate(e)} className="px-[10%] pt-2">
+        <form onSubmit={(e) => handleCreate(e)} className="px-[12%] pt-2">
           <div>
             <span className="font-[400]">Property Type Name</span>
             <Input

@@ -162,7 +162,7 @@ function AdminUser() {
         title="Edit User"
         className="w-[50%]"
       >
-        <form onSubmit={() => handleEdit()} className="px-[10%] pt-2">
+        <form onSubmit={() => handleEdit()} className="px-[12%] pt-2">
           <div>
             <span className="font-[400]">User Name</span>
             <Input

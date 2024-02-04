@@ -186,7 +186,7 @@ function AdminPropetyType({ setActive }: any) {
         title="Edit property type"
         className="w-[50%]"
       >
-        <form onSubmit={(e) => handleEdit(e)} className="px-[10%] pt-2">
+        <form onSubmit={(e) => handleEdit(e)} className="px-[12%] pt-2">
           <div>
             <span className="font-[400]">Property Type Name</span>
             <Input

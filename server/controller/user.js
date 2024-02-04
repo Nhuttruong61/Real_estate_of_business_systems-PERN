@@ -6,7 +6,7 @@ const getUser = async (req, res, next) => {
   try {
     const { uid } = req.user;
     const response = await db.User.findByPk(uid, {
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ["password", "refeshToken"] },
     });
     if (!response) return throwError(401, "User not default", res, next);
     return res.json({

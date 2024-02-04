@@ -8,7 +8,7 @@ function Footer({ router }: any) {
     router.push(`${el.link}`);
   };
   return (
-    <div className="w-full px-[10%]">
+    <div className="w-full px-[12%]">
       <div className="grid grid-cols-4 py-10">
         <div className="flex flex-col">
           <div>

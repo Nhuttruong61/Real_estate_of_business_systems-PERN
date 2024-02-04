@@ -1,8 +1,12 @@
-import HeaderLayout from "@/components/Header/HeaderLayout";
+import Properties from "@/components/property/Properties";
 import React from "react";
 
-function Properties() {
-  return <div></div>;
+function Property() {
+  return (
+    <div className="w-full">
+      <Properties />
+    </div>
+  );
 }
 
-export default Properties;
+export default Property;
