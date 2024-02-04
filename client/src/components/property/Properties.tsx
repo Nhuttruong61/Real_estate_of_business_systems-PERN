@@ -18,9 +18,14 @@ function Properties({ dispatch }: any) {
     filter: "",
   });
 
-  const getProperties = async (options: any, page: number) => {
+  const getProperties = async (options: any, limit: number) => {
     try {
-      const res = await getAllSort(options.sort, options.filter, page);
+      const res = await getAllSort(
+        options.sort,
+        options.filter,
+        limit,
+        options.page
+      );
       if (res.success) return res;
     } catch (err) {
       console.log(err);
@@ -28,7 +33,7 @@ function Properties({ dispatch }: any) {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["property", options.sort, options.filter, limit],
+    queryKey: ["property", options.sort, options.filter, limit, options.page],
     queryFn: () => getProperties(options, limit),
     refetchOnMount: false,
     staleTime: 1000 * 600,
@@ -42,7 +47,7 @@ function Properties({ dispatch }: any) {
     setOptions({ ...options, filter: item.name });
   };
   const handlePanigate = (e: any) => {
-    console.log(e);
+    setOptions({ ...options, page: e });
   };
   const getPropertyType = async () => {
     const res = await dispatch(fetchPropertyType());
@@ -54,7 +59,6 @@ function Properties({ dispatch }: any) {
     staleTime: 1000 * 600,
   });
 
-  console.log(dataType);
   return (
     <div className="px-[12%] pt-10">
       <div className="flex flex-col">
@@ -131,7 +135,7 @@ function Properties({ dispatch }: any) {
             <div className="flex justify-center pt-2">
               <Pagination
                 total={data?.count}
-                pageSize={1}
+                pageSize={limit}
                 onChange={handlePanigate}
               />
             </div>
